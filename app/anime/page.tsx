@@ -1,101 +1,139 @@
-const animeList = [
+import Link from "next/link";
+
+const animes = [
   {
     title: "Solo Leveling",
+    description: "Güçsüz bir avcıdan dünyanın en güçlü avcısına...",
     image: "/images/solo-leveling.jpg",
-    year: "2024",
-    genre: "Action • Fantasy",
-    href: "/anime/solo-leveling",
-  },
-  {
-    title: "Demon Slayer",
-    image: "/images/demon-slayer.jpg",
-    year: "2019",
-    genre: "Action • Fantasy",
-    href: "/anime/demon-slayer",
-  },
-  {
-    title: "Blue Lock",
-    image: "/images/blue-lock.jpg",
-    year: "2022",
-    genre: "Sports • Drama",
-    href: "/anime/blue-lock",
+    episodes: "Bölüm 1",
+    link: "/anime/solo-leveling",
   },
   {
     title: "Jujutsu Kaisen",
-    image: "/images/jujutsu-kaisen.jpg",
-    year: "2020",
-    genre: "Action • Supernatural",
-    href: "/anime/jujutsu-kaisen",
+    description: "Lanetler ve büyücüler arasındaki mücadele...",
+    image: "/images/jujustus-kaisen.jpg",
+    episodes: "Bölüm 1",
+    link: "/anime/jujutsu-kaisen",
+  },
+  {
+    title: "Demon Slayer",
+    description: "Tanjiro'nun iblislerle mücadelesi...",
+    image: "/images/demon-slayer.jpg",
+    episodes: "Bölüm 1",
+    link: "/anime/demon-slayer",
+  },
+  {
+    title: "Blue Lock",
+    description: "Dünyanın en iyi forvetini bulmak için yapılan proje...",
+    image: "/images/blue-lock.jpg",
+    episodes: "Bölüm 1",
+    link: "/anime/blue-lock",
   },
 ];
 
+function MoonLogo() {
+  return (
+    <div className="relative h-10 w-10">
+      <div className="absolute left-0 top-1 h-8 w-8 rounded-full bg-red-600" />
+      <div className="absolute left-2 top-0 h-8 w-8 rounded-full bg-[#070707]" />
+    </div>
+  );
+}
+
 export default function AnimePage() {
   return (
-    <main className="min-h-screen bg-[#07070b] text-white">
+    <main className="min-h-screen bg-[#050505] text-white">
 
       {/* NAVBAR */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#09090d]/95 backdrop-blur">
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#070707]/95 backdrop-blur">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
-          <a
-            href="/"
-            className="text-2xl font-black"
-          >
-            ROIRUZU<span className="text-purple-500">.</span>
-          </a>
+          {/* LOGO */}
+          <Link href="/" className="flex items-center gap-3">
+            <MoonLogo />
 
-          <nav className="hidden gap-8 md:flex">
+            <div>
+              <div className="text-2xl font-black tracking-[0.3em]">
+                NOX
+              </div>
 
-            <a
+              <div className="text-[8px] tracking-[0.45em] text-red-500">
+                ANIME
+              </div>
+            </div>
+          </Link>
+
+          {/* MENU */}
+          <nav className="hidden items-center gap-8 text-sm md:flex">
+            <Link
               href="/"
-              className="text-zinc-400 transition hover:text-purple-400"
+              className="text-gray-400 transition hover:text-white"
             >
-              Ana Sayfa
-            </a>
+              ANA SAYFA
+            </Link>
 
-            <a
+            <Link
               href="/anime"
-              className="text-purple-400"
+              className="font-bold text-red-500"
             >
-              Animeler
-            </a>
-
+              ANİMELER
+            </Link>
           </nav>
 
+          {/* SEARCH */}
+          <div className="hidden border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-gray-500 sm:block">
+            🔍 Anime ara...
+          </div>
         </div>
       </header>
 
-      {/* BAŞLIK */}
-      <section className="mx-auto max-w-7xl px-6 pt-16">
+      {/* TITLE */}
+      <section className="mx-auto max-w-7xl px-6 pb-8 pt-14">
 
-        <p className="text-sm font-bold uppercase tracking-[0.3em] text-purple-400">
-          ROIRUZU ANIME
+        <div className="flex items-center gap-4">
+          <MoonLogo />
+
+          <div>
+            <p className="text-xs font-bold tracking-[0.4em] text-red-500">
+              NOX ANIME
+            </p>
+
+            <h1 className="mt-1 text-4xl font-black md:text-5xl">
+              ANİMELER
+            </h1>
+          </div>
+        </div>
+
+        <p className="mt-5 max-w-2xl text-sm leading-6 text-gray-500">
+          İzlemek istediğin animeleri keşfet ve favori serilerini
+          takip et.
         </p>
-
-        <h1 className="mt-3 text-5xl font-black md:text-6xl">
-          Tüm Animeler
-        </h1>
-
-        <p className="mt-5 max-w-2xl text-zinc-500">
-          İzlemek istediğin animeyi keşfet ve detaylarına göz at.
-        </p>
-
       </section>
 
-      {/* ANİME KARTLARI */}
-      <section className="mx-auto max-w-7xl px-6 py-14">
+      {/* ANIME GRID */}
+      <section className="mx-auto max-w-7xl px-6 pb-20">
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-8 flex items-center gap-3">
+          <div className="h-6 w-1 bg-red-600" />
 
-          {animeList.map((anime) => (
+          <h2 className="text-sm font-bold tracking-[0.15em]">
+            TÜM ANİMELER
+          </h2>
 
-            <article
+          <span className="text-xs text-gray-600">
+            {animes.length} SERİ
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          {animes.map((anime) => (
+            <Link
+              href={anime.link}
               key={anime.title}
-              className="group overflow-hidden rounded-2xl border border-white/10 bg-[#101016] transition duration-300 hover:-translate-y-1 hover:border-purple-500/40"
+              className="group overflow-hidden border border-white/10 bg-[#0b0b0d] transition duration-300 hover:-translate-y-1 hover:border-red-700"
             >
-
-              {/* GÖRSEL */}
-              <div className="relative h-[420px] overflow-hidden">
+              {/* IMAGE */}
+              <div className="relative aspect-[2/3] overflow-hidden bg-black">
 
                 <img
                   src={anime.image}
@@ -103,52 +141,62 @@ export default function AnimePage() {
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                {/* DARK OVERLAY */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
 
-                <span className="absolute left-4 top-4 rounded-lg bg-black/70 px-3 py-1 text-xs font-bold backdrop-blur">
-                  {anime.year}
-                </span>
-
+                {/* EPISODE */}
+                <div className="absolute bottom-3 left-3 bg-red-600 px-2 py-1 text-[10px] font-bold">
+                  {anime.episodes}
+                </div>
               </div>
 
-              {/* BİLGİ */}
-              <div className="p-5">
+              {/* CONTENT */}
+              <div className="p-4">
 
-                <h2 className="text-xl font-black">
+                <h3 className="text-sm font-bold">
                   {anime.title}
-                </h2>
+                </h3>
 
-                <p className="mt-2 text-sm text-zinc-500">
-                  {anime.genre}
+                <p className="mt-2 line-clamp-2 text-xs leading-5 text-gray-500">
+                  {anime.description}
                 </p>
 
-                <a
-                  href={anime.href}
-                  className="mt-5 flex w-full items-center justify-center rounded-xl bg-purple-600 px-5 py-3 font-bold transition hover:bg-purple-500"
-                >
-                  İncele
-                </a>
+                <div className="mt-4 flex items-center justify-between">
+
+                  <span className="text-[10px] uppercase tracking-wider text-gray-600">
+                    Anime
+                  </span>
+
+                  <span className="text-red-600 transition group-hover:translate-x-1">
+                    →
+                  </span>
+
+                </div>
+
+                <div className="mt-3 h-[2px] w-8 bg-red-600 transition-all group-hover:w-full" />
 
               </div>
-
-            </article>
-
+            </Link>
           ))}
-
         </div>
-
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-white/10 bg-[#09090d] py-10 text-center">
+      <footer className="border-t border-white/10 bg-[#070707] py-10">
 
-        <p className="font-black">
-          ROIRUZU<span className="text-purple-500">.</span>
-        </p>
+        <div className="flex flex-col items-center justify-center">
 
-        <p className="mt-2 text-sm text-zinc-600">
-          © 2026 ROIRUZU Anime
-        </p>
+          <MoonLogo />
+
+          <div className="mt-2 text-lg font-black tracking-[0.3em]">
+            NOX
+          </div>
+
+          <p className="mt-2 text-xs text-gray-600">
+            © 2026 NOX ANIME
+          </p>
+
+        </div>
 
       </footer>
 
