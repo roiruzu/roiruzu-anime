@@ -16,8 +16,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--background);
-  color: var(--foreground);
+  background: #050505;
+  color: #fff;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -32,7 +32,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #7f1d1d;
+  background: #450a0a;
   border-radius: 999px;
 }
 
@@ -51,40 +51,37 @@ body {
 
 .mouse-glow {
   position: fixed;
+
+  left: 0;
+  top: 0;
+
   width: 280px;
   height: 280px;
+
   pointer-events: none;
+
   z-index: 9999;
+
+  border-radius: 50%;
 
   background: radial-gradient(
     circle,
-    rgba(220, 38, 38, 0.12) 0%,
-    rgba(220, 38, 38, 0.06) 25%,
-    rgba(220, 38, 38, 0.025) 45%,
+    rgba(220, 38, 38, 0.16) 0%,
+    rgba(220, 38, 38, 0.08) 25%,
+    rgba(220, 38, 38, 0.035) 45%,
     transparent 70%
   );
 
   transform: translate(-50%, -50%);
-  border-radius: 50%;
 
-  filter: blur(8px);
+  filter: blur(10px);
 
-  transition:
-    left 0.08s ease-out,
-    top 0.08s ease-out;
+  will-change: left, top;
 
   mix-blend-mode: screen;
 }
 
-/* Hafif kırmızı glow */
-
-.red-glow {
-  box-shadow:
-    0 0 20px rgba(220, 38, 38, 0.15),
-    0 0 50px rgba(220, 38, 38, 0.06);
-}
-
-/* Kart hover */
+/* Anime Cards */
 
 .anime-card {
   transition:
@@ -94,16 +91,24 @@ body {
 }
 
 .anime-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-7px);
 
-  border-color: rgba(220, 38, 38, 0.55);
+  border-color: rgba(220, 38, 38, 0.5);
 
   box-shadow:
-    0 10px 35px rgba(0, 0, 0, 0.5),
+    0 15px 40px rgba(0, 0, 0, 0.6),
     0 0 30px rgba(220, 38, 38, 0.08);
 }
 
-/* Buton glow */
+/* Red Glow */
+
+.red-glow {
+  box-shadow:
+    0 0 25px rgba(220, 38, 38, 0.12),
+    0 0 60px rgba(220, 38, 38, 0.05);
+}
+
+/* Buttons */
 
 .red-button {
   transition:
@@ -117,5 +122,5 @@ body {
 
   box-shadow:
     0 0 20px rgba(220, 38, 38, 0.3),
-    0 0 45px rgba(220, 38, 38, 0.12);
+    0 0 45px rgba(220, 38, 38, 0.1);
 }
