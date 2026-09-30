@@ -1,203 +1,203 @@
-import Link from "next/link";
+"use client";
 
-const animes = [
-  {
-    title: "Solo Leveling",
-    description: "Güçsüz bir avcıdan dünyanın en güçlü avcısına...",
-    image: "/images/solo-leveling.jpg",
-    episodes: "Bölüm 1",
-    link: "/anime/solo-leveling",
-  },
-  {
-    title: "Jujutsu Kaisen",
-    description: "Lanetler ve büyücüler arasındaki mücadele...",
-    image: "/images/jujustus-kaisen.jpg",
-    episodes: "Bölüm 1",
-    link: "/anime/jujutsu-kaisen",
-  },
-  {
-    title: "Demon Slayer",
-    description: "Tanjiro'nun iblislerle mücadelesi...",
-    image: "/images/demon-slayer.jpg",
-    episodes: "Bölüm 1",
-    link: "/anime/demon-slayer",
-  },
-  {
-    title: "Blue Lock",
-    description: "Dünyanın en iyi forvetini bulmak için yapılan proje...",
-    image: "/images/blue-lock.jpg",
-    episodes: "Bölüm 1",
-    link: "/anime/blue-lock",
-  },
-];
+import { useEffect, useState } from "react";
 
 function MoonLogo() {
   return (
-    <div className="relative h-10 w-10">
-      <div className="absolute left-0 top-1 h-8 w-8 rounded-full bg-red-600" />
-      <div className="absolute left-2 top-0 h-8 w-8 rounded-full bg-[#070707]" />
-    </div>
+    <svg
+      viewBox="0 0 40 40"
+      className="h-10 w-10 text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.6)]"
+      fill="currentColor"
+    >
+      <path d="M27.5 3.5C22.8 6.4 20 11.4 20 17.2C20 25.9 27 33 35.7 33C36.2 33 36.7 33 37.2 32.9C34.2 36.1 29.7 38 24.7 38C15.1 38 7.3 30.2 7.3 20.6C7.3 11.4 14.4 3.8 23.5 3C24.9 2.9 26.2 3.1 27.5 3.5Z" />
+    </svg>
   );
 }
 
 export default function AnimePage() {
+  const [mouse, setMouse] = useState({
+    x: -500,
+    y: -500,
+  });
+
+  useEffect(() => {
+    const moveMouse = (e: MouseEvent) => {
+      setMouse({
+        x: e.clientX,
+        y: e.clientY,
+      });
+    };
+
+    window.addEventListener("mousemove", moveMouse);
+
+    return () => {
+      window.removeEventListener("mousemove", moveMouse);
+    };
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#050505] text-white">
 
+      {/* MOUSE GLOW */}
+      <div
+        className="mouse-glow"
+        style={{
+          left: mouse.x,
+          top: mouse.y,
+        }}
+      />
+
       {/* NAVBAR */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#070707]/95 backdrop-blur">
+      <header className="border-b border-white/[0.06] bg-black/80 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
-          {/* LOGO */}
-          <Link href="/" className="flex items-center gap-3">
+          <a
+            href="/"
+            className="flex items-center gap-3"
+          >
             <MoonLogo />
 
             <div>
-              <div className="text-2xl font-black tracking-[0.3em]">
-                NOX
+              <div className="font-black tracking-[0.12em]">
+                ROIRUZU
               </div>
 
-              <div className="text-[8px] tracking-[0.45em] text-red-500">
+              <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
                 ANIME
               </div>
             </div>
-          </Link>
+          </a>
 
-          {/* MENU */}
-          <nav className="hidden items-center gap-8 text-sm md:flex">
-            <Link
+          <nav className="hidden gap-8 text-sm md:flex">
+            <a
               href="/"
-              className="text-gray-400 transition hover:text-white"
+              className="text-zinc-400 hover:text-red-500"
             >
-              ANA SAYFA
-            </Link>
+              Ana Sayfa
+            </a>
 
-            <Link
+            <a
               href="/anime"
-              className="font-bold text-red-500"
+              className="text-white"
             >
-              ANİMELER
-            </Link>
+              Animeler
+            </a>
+
+            <a
+              href="/#popular"
+              className="text-zinc-400 hover:text-red-500"
+            >
+              Popüler
+            </a>
           </nav>
 
-          {/* SEARCH */}
-          <div className="hidden border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-gray-500 sm:block">
-            🔍 Anime ara...
-          </div>
+          <button className="red-button rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold hover:bg-red-500">
+            Giriş Yap
+          </button>
+
         </div>
       </header>
 
-      {/* TITLE */}
-      <section className="mx-auto max-w-7xl px-6 pb-8 pt-14">
+      {/* HERO */}
+      <section className="relative overflow-hidden">
 
-        <div className="flex items-center gap-4">
-          <MoonLogo />
+        <div className="absolute left-1/3 top-0 h-[500px] w-[500px] rounded-full bg-red-700/[0.06] blur-[130px]" />
 
-          <div>
-            <p className="text-xs font-bold tracking-[0.4em] text-red-500">
-              NOX ANIME
+        <div className="relative mx-auto flex max-w-7xl flex-col gap-10 px-6 py-16 md:flex-row">
+
+          {/* POSTER */}
+          <div className="red-glow flex h-[430px] w-full shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-900 to-black md:w-[290px]">
+
+            <MoonLogo />
+
+          </div>
+
+          {/* INFO */}
+          <div className="flex flex-col justify-center">
+
+            <div className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-red-500">
+              Anime
+            </div>
+
+            <h1 className="text-5xl font-black md:text-7xl">
+              Cyber Moon
+            </h1>
+
+            <div className="mt-5 flex flex-wrap gap-4 text-sm text-zinc-400">
+              <span>⭐ 8.7</span>
+              <span>•</span>
+              <span>2026</span>
+              <span>•</span>
+              <span>12 Bölüm</span>
+              <span>•</span>
+              <span>Aksiyon</span>
+            </div>
+
+            <p className="mt-7 max-w-2xl leading-7 text-zinc-400">
+              Geceyi kaplayan gizemli olayların ardından
+              genç bir kahraman, şehrin karanlık tarafında
+              başlayan tehlikeli bir maceraya sürüklenir.
             </p>
 
-            <h1 className="mt-1 text-4xl font-black md:text-5xl">
-              ANİMELER
-            </h1>
+            <div className="mt-8 flex gap-3">
+
+              <button className="red-button rounded-xl bg-red-600 px-7 py-4 font-bold hover:bg-red-500">
+                ▶ İzlemeye Başla
+              </button>
+
+              <button className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 font-bold text-zinc-300 hover:border-red-500/30">
+                + Listeye Ekle
+              </button>
+
+            </div>
+
           </div>
+
         </div>
 
-        <p className="mt-5 max-w-2xl text-sm leading-6 text-gray-500">
-          İzlemek istediğin animeleri keşfet ve favori serilerini
-          takip et.
-        </p>
       </section>
 
-      {/* ANIME GRID */}
+      {/* EPISODES */}
       <section className="mx-auto max-w-7xl px-6 pb-20">
 
-        <div className="mb-8 flex items-center gap-3">
-          <div className="h-6 w-1 bg-red-600" />
+        <div className="mb-8">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">
+            İzle
+          </p>
 
-          <h2 className="text-sm font-bold tracking-[0.15em]">
-            TÜM ANİMELER
+          <h2 className="mt-2 text-3xl font-black">
+            Bölümler
           </h2>
-
-          <span className="text-xs text-gray-600">
-            {animes.length} SERİ
-          </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {animes.map((anime) => (
-            <Link
-              href={anime.link}
-              key={anime.title}
-              className="group overflow-hidden border border-white/10 bg-[#0b0b0d] transition duration-300 hover:-translate-y-1 hover:border-red-700"
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+
+          {Array.from({ length: 12 }, (_, index) => (
+
+            <button
+              key={index}
+              className="group rounded-xl border border-white/[0.07] bg-white/[0.025] p-4 text-left transition duration-200 hover:-translate-y-1 hover:border-red-500/50 hover:bg-red-600"
             >
-              {/* IMAGE */}
-              <div className="relative aspect-[2/3] overflow-hidden bg-black">
 
-                <img
-                  src={anime.image}
-                  alt={anime.title}
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                />
-
-                {/* DARK OVERLAY */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-
-                {/* EPISODE */}
-                <div className="absolute bottom-3 left-3 bg-red-600 px-2 py-1 text-[10px] font-bold">
-                  {anime.episodes}
-                </div>
+              <div className="text-[10px] font-bold uppercase tracking-widest text-zinc-600 group-hover:text-red-100">
+                Bölüm
               </div>
 
-              {/* CONTENT */}
-              <div className="p-4">
-
-                <h3 className="text-sm font-bold">
-                  {anime.title}
-                </h3>
-
-                <p className="mt-2 line-clamp-2 text-xs leading-5 text-gray-500">
-                  {anime.description}
-                </p>
-
-                <div className="mt-4 flex items-center justify-between">
-
-                  <span className="text-[10px] uppercase tracking-wider text-gray-600">
-                    Anime
-                  </span>
-
-                  <span className="text-red-600 transition group-hover:translate-x-1">
-                    →
-                  </span>
-
-                </div>
-
-                <div className="mt-3 h-[2px] w-8 bg-red-600 transition-all group-hover:w-full" />
-
+              <div className="mt-1 text-xl font-black">
+                {String(index + 1).padStart(2, "0")}
               </div>
-            </Link>
+
+            </button>
+
           ))}
+
         </div>
+
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-white/10 bg-[#070707] py-10">
-
-        <div className="flex flex-col items-center justify-center">
-
-          <MoonLogo />
-
-          <div className="mt-2 text-lg font-black tracking-[0.3em]">
-            NOX
-          </div>
-
-          <p className="mt-2 text-xs text-gray-600">
-            © 2026 NOX ANIME
-          </p>
-
-        </div>
-
+      <footer className="border-t border-white/[0.06] py-10 text-center text-sm text-zinc-600">
+        © 2026 ROIRUZU Anime
       </footer>
 
     </main>
