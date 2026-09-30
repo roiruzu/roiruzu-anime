@@ -31,13 +31,7 @@ const animeList = [
     rating: "8.2",
     episodes: "38 Bölüm",
   },
-  {
-    name: "Cyber Moon",
-    slug: "cyber-moon",
-    image: "/images/cyber-moon.jpg",
-    rating: "8.7",
-    episodes: "12 Bölüm",
-  },
+  
 ];
 
 function MoonLogo() {
