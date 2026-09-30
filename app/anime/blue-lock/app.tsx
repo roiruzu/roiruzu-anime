@@ -5,13 +5,13 @@ import { useEffect, useRef } from "react";
 function MoonLogo() {
 return ( <svg
    viewBox="0 0 40 40"
-   className="h-9 w-9 text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
+   className="h-9 w-9 text-blue-600 drop-shadow-[0_0_10px_rgba(37,99,235,0.7)]"
    fill="currentColor"
  > <path d="M27.5 3.5C22.8 6.4 20 11.4 20 17.2C20 25.9 27 33 35.7 33C36.2 33 36.7 33 37.2 32.9C34.2 36.1 29.7 38 24.7 38C15.1 38 7.3 30.2 7.3 20.6C7.3 11.4 14.4 3.8 23.5 3C24.9 2.9 26.2 3.1 27.5 3.5Z" /> </svg>
 );
 }
 
-export default function JujutsuKaisenPage() {
+export default function BlueLockPage() {
 const glowRef = useRef<HTMLDivElement>(null);
 
 useEffect(() => {
@@ -45,6 +45,7 @@ return () => {
 
 return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
+```
   {/* MOUSE GLOW */}
   <div
     ref={glowRef}
@@ -53,17 +54,14 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
   {/* BACKGROUND GLOW */}
   <div className="pointer-events-none fixed inset-0 z-0">
-    <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-red-700/[0.07] blur-[150px]" />
+    <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-blue-700/[0.07] blur-[150px]" />
   </div>
 
   {/* NAVBAR */}
   <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-black/75 backdrop-blur-xl">
     <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
-      <a
-        href="/"
-        className="flex items-center gap-3"
-      >
+      <a href="/" className="flex items-center gap-3">
         <MoonLogo />
 
         <div>
@@ -71,7 +69,7 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
             NOX SCANS
           </div>
 
-          <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
+          <div className="text-[9px] font-bold tracking-[0.35em] text-blue-500">
             ANIME & MANGA
           </div>
         </div>
@@ -81,28 +79,28 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
         <a
           href="/"
-          className="text-zinc-400 transition hover:text-red-500"
+          className="text-zinc-400 transition hover:text-blue-500"
         >
           Ana Sayfa
         </a>
 
         <a
           href="/#popular"
-          className="text-white transition hover:text-red-500"
+          className="text-white transition hover:text-blue-500"
         >
           Animeler
         </a>
 
         <a
           href="/#popular"
-          className="text-zinc-400 transition hover:text-red-500"
+          className="text-zinc-400 transition hover:text-blue-500"
         >
           Popüler
         </a>
 
         <a
           href="/#genres"
-          className="text-zinc-400 transition hover:text-red-500"
+          className="text-zinc-400 transition hover:text-blue-500"
         >
           Türler
         </a>
@@ -111,11 +109,11 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
       <div className="flex items-center gap-3">
 
-        <button className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-red-500/40 hover:text-red-500 sm:flex">
+        <button className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-blue-500/40 hover:text-blue-500 sm:flex">
           🔍
         </button>
 
-        <button className="red-button rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold hover:bg-red-500">
+        <button className="rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold hover:bg-blue-500">
           Giriş Yap
         </button>
 
@@ -134,28 +132,24 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
         <a
           href="/"
-          className="text-zinc-500 transition hover:text-red-500"
+          className="text-zinc-500 transition hover:text-blue-500"
         >
           Ana Sayfa
         </a>
 
-        <span className="text-zinc-700">
-          /
-        </span>
+        <span className="text-zinc-700">/</span>
 
         <a
           href="/#popular"
-          className="text-zinc-500 transition hover:text-red-500"
+          className="text-zinc-500 transition hover:text-blue-500"
         >
           Animeler
         </a>
 
-        <span className="text-zinc-700">
-          /
-        </span>
+        <span className="text-zinc-700">/</span>
 
         <span className="text-zinc-300">
-          Jujutsu Kaisen
+          Blue Lock
         </span>
 
       </div>
@@ -166,30 +160,30 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
         {/* POSTER */}
         <div className="relative mx-auto w-full max-w-[310px]">
 
-          <div className="absolute -inset-5 rounded-[35px] bg-red-600/[0.08] blur-2xl" />
+          <div className="absolute -inset-5 rounded-[35px] bg-blue-600/[0.08] blur-2xl" />
 
           <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl">
 
             <img
-              src="/images/jujutsu-kaisen.jpg"
-              alt="Jujutsu Kaisen"
+              src="/images/blue-lock.jpg"
+              alt="Blue Lock"
               className="aspect-[3/4] w-full object-cover transition duration-700 group-hover:scale-105"
             />
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
 
-            <div className="absolute left-5 top-5 rounded-lg border border-red-500/30 bg-red-600/90 px-3 py-1.5 text-xs font-black">
+            <div className="absolute left-5 top-5 rounded-lg border border-blue-500/30 bg-blue-600/90 px-3 py-1.5 text-xs font-black">
               HD
             </div>
 
             <div className="absolute bottom-5 left-5">
 
-              <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-red-500">
+              <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-blue-500">
                 NOX SCANS
               </div>
 
               <div className="mt-1 text-xl font-black">
-                JUJUTSU KAISEN
+                BLUE LOCK
               </div>
 
             </div>
@@ -203,61 +197,61 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
           <div className="flex items-center gap-2">
 
-            <span className="h-2 w-2 rounded-full bg-red-500 shadow-[0_0_12px_#ef4444]" />
+            <span className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_12px_#3b82f6]" />
 
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-blue-500">
               Anime
             </span>
 
           </div>
 
           <h1 className="mt-5 text-6xl font-black leading-[0.88] tracking-tight sm:text-7xl lg:text-8xl">
-            Jujutsu
+            Blue
             <br />
-            <span className="text-red-600">
-              Kaisen
+            <span className="text-blue-600">
+              Lock
             </span>
           </h1>
 
           <p className="mt-5 text-lg font-medium text-zinc-500">
-            呪術廻戦
+            ブルーロック
           </p>
 
           {/* TAGS */}
           <div className="mt-7 flex flex-wrap gap-2">
 
             <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
-              ⭐ 8.6
+              ⭐ 8.3
             </span>
 
             <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
-              Aksiyon
+              Spor
             </span>
 
             <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
-              Doğaüstü
+              Futbol
             </span>
 
             <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
-              Fantastik
+              Shounen
             </span>
 
             <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
-              47 Bölüm
+              38 Bölüm
             </span>
 
             <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
-              2020
+              2022
             </span>
 
           </div>
 
           {/* DESCRIPTION */}
           <p className="mt-8 max-w-2xl text-[15px] leading-8 text-zinc-400">
-            Yuji Itadori, olağanüstü fiziksel yeteneklere sahip genç bir
-            öğrencidir. Lanetli bir nesneyi yuttuktan sonra Jujutsu
-            dünyasının içine çekilir ve güçlü lanetlerle mücadele
-            etmeye başlar.
+            Japonya'nın Dünya Kupası'nı kazanmasını sağlamak amacıyla
+            oluşturulan Blue Lock projesine katılan Isagi Yoichi,
+            dünyanın en iyi forveti olma yolunda yüzlerce genç
+            futbolcuyla mücadele eder.
           </p>
 
           {/* BUTTONS */}
@@ -265,12 +259,12 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
             <a
               href="#episodes"
-              className="red-button rounded-xl bg-red-600 px-7 py-4 text-sm font-black shadow-lg shadow-red-950/30 hover:bg-red-500"
+              className="rounded-xl bg-blue-600 px-7 py-4 text-sm font-black shadow-lg shadow-blue-950/30 hover:bg-blue-500"
             >
               ▶ Bölümleri Gör
             </a>
 
-            <button className="rounded-xl border border-white/10 bg-white/[0.03] px-7 py-4 text-sm font-bold text-zinc-300 transition hover:border-red-500/40 hover:text-white">
+            <button className="rounded-xl border border-white/10 bg-white/[0.03] px-7 py-4 text-sm font-bold text-zinc-300 transition hover:border-blue-500/40 hover:text-white">
               + Listeme Ekle
             </button>
 
@@ -292,20 +286,20 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
       {/* STORY */}
       <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
 
-        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
+        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500">
           Hikaye
         </div>
 
         <h2 className="mt-3 text-3xl font-black">
-          Jujutsu Kaisen Hakkında
+          Blue Lock Hakkında
         </h2>
 
         <p className="mt-6 max-w-3xl text-sm leading-8 text-zinc-400">
-          Yuji Itadori, okulundaki doğaüstü olaylar kulübüne katılır.
-          Bir gün lanetli bir nesne ortaya çıktığında Yuji, arkadaşlarını
-          korumak için nesneyi yutar ve kendisini lanetlerin dünyasında
-          bulur. Satoru Gojo'nun rehberliğinde Jujutsu büyücülerinin
-          arasına katılarak tehlikeli görevlerde mücadele eder.
+          Japonya'nın futbol dünyasında başarısız sonuçlar almasının
+          ardından dünyanın en iyi forvetini yetiştirmek için Blue Lock
+          projesi başlatılır. Isagi Yoichi, diğer yetenekli oyuncularla
+          birlikte bu zorlu programa katılır. Her maç, oyuncuların
+          yeteneklerini ve egolarını test eder.
         </p>
 
       </div>
@@ -313,7 +307,7 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
       {/* DETAILS */}
       <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
 
-        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
+        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500">
           Bilgiler
         </div>
 
@@ -325,7 +319,7 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
             </span>
 
             <span className="font-bold">
-              ⭐ 8.6
+              ⭐ 8.3
             </span>
           </div>
 
@@ -335,7 +329,7 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
             </span>
 
             <span className="font-bold">
-              47
+              38
             </span>
           </div>
 
@@ -345,7 +339,7 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
             </span>
 
             <span className="font-bold">
-              2020
+              2022
             </span>
           </div>
 
@@ -355,7 +349,7 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
             </span>
 
             <span className="font-bold">
-              MAPPA
+              8bit
             </span>
           </div>
 
@@ -365,7 +359,7 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
             </span>
 
             <span className="text-right font-bold">
-              Aksiyon / Doğaüstü
+              Spor / Shounen
             </span>
           </div>
 
@@ -387,12 +381,12 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
       <div>
 
-        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
+        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500">
           İzle
         </div>
 
         <h2 className="mt-2 text-3xl font-black">
-          Jujutsu Kaisen Bölümleri
+          Blue Lock Bölümleri
         </h2>
 
         <p className="mt-2 text-sm text-zinc-500">
@@ -402,27 +396,27 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
       </div>
 
       <div className="hidden text-sm text-zinc-600 sm:block">
-        47 Bölüm
+        38 Bölüm
       </div>
 
     </div>
 
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
 
-      {Array.from({ length: 47 }, (_, i) => i + 1).map(
+      {Array.from({ length: 38 }, (_, i) => i + 1).map(
         (episode) => (
 
           <a
             key={episode}
             href={
               episode === 1
-                ? "/anime/jujutsu-kaisen/episode-1"
+                ? "/anime/blue-lock/episode-1"
                 : "#"
             }
-            className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:bg-red-600/[0.06]"
+            className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition duration-300 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-blue-600/[0.06]"
           >
 
-            <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-600 transition group-hover:text-red-500">
+            <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-600 transition group-hover:text-blue-500">
               Bölüm
             </div>
 
@@ -434,7 +428,7 @@ return ( <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
               İzle →
             </div>
 
-            <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-600 transition-all duration-300 group-hover:w-full" />
+            <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 group-hover:w-full" />
 
           </a>
 
