@@ -9,6 +9,6 @@ export default defineConfig({
   },
 
   datasource: {
-    url: "postgres://postgres:postgres@localhost:51214/template1?sslmode=disable",
+    url: process.env.DATABASE_URL!,
   },
 });
