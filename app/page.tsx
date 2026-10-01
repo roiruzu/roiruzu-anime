@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const animeList = [
@@ -32,18 +33,6 @@ const animeList = [
     episodes: "38 Bölüm",
   },
 ];
-
-function MoonLogo() {
-  return (
-    <svg
-      viewBox="0 0 40 40"
-      className="h-9 w-9 text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
-      fill="currentColor"
-    >
-      <path d="M27.5 3.5C22.8 6.4 20 11.4 20 17.2C20 25.9 27 33 35.7 33C36.2 33 36.7 33 37.2 32.9C34.2 36.1 29.7 38 24.7 38C15.1 38 7.3 30.2 7.3 20.6C7.3 11.4 14.4 3.8 23.5 3C24.9 2.9 26.2 3.1 27.5 3.5Z" />
-    </svg>
-  );
-}
 
 export default function Home() {
   const glowRef = useRef<HTMLDivElement>(null);
@@ -137,14 +126,33 @@ export default function Home() {
     <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
       {/* MOUSE GLOW */}
-      <div ref={glowRef} className="mouse-glow" />
+      <div
+        ref={glowRef}
+        className="mouse-glow pointer-events-none fixed z-0"
+      />
+
+      {/* BACKGROUND */}
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-red-700/[0.07] blur-[150px]" />
+      </div>
 
       {/* NAVBAR */}
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-black/75 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
-          <a href="/" className="flex items-center gap-3">
-            <MoonLogo />
+          {/* LOGO */}
+          <a
+            href="/"
+            className="flex items-center gap-3"
+          >
+            <Image
+              src="/icon.png"
+              alt="NOX SCANS"
+              width={40}
+              height={40}
+              priority
+              className="h-10 w-10 rounded-xl object-contain"
+            />
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
@@ -157,6 +165,7 @@ export default function Home() {
             </div>
           </a>
 
+          {/* NAVIGATION */}
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
 
             <a
@@ -189,20 +198,28 @@ export default function Home() {
 
           </nav>
 
+          {/* RIGHT SIDE */}
           <div className="flex items-center gap-3">
 
+            {/* SEARCH */}
             <button
+              type="button"
               className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-red-500/40 hover:text-red-500 sm:flex"
             >
               🔍
             </button>
 
+            {/* USER */}
             {loadingUser ? (
+
               <div className="h-10 w-24 animate-pulse rounded-xl bg-white/10" />
+
             ) : user ? (
+
               <div className="relative">
 
                 <button
+                  type="button"
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="red-button rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold transition hover:bg-red-500"
                 >
@@ -210,6 +227,7 @@ export default function Home() {
                 </button>
 
                 {showUserMenu && (
+
                   <div className="absolute right-0 top-14 w-44 overflow-hidden rounded-xl border border-white/10 bg-zinc-950 shadow-2xl">
 
                     <a
@@ -220,6 +238,7 @@ export default function Home() {
                     </a>
 
                     <button
+                      type="button"
                       onClick={logout}
                       className="block w-full px-4 py-3 text-left text-sm text-red-500 transition hover:bg-red-500/10"
                     >
@@ -227,19 +246,24 @@ export default function Home() {
                     </button>
 
                   </div>
+
                 )}
 
               </div>
+
             ) : (
+
               <a
                 href="/login"
-                className="red-button rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold hover:bg-red-500"
+                className="red-button rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold transition hover:bg-red-500"
               >
                 Giriş Yap
               </a>
+
             )}
 
           </div>
+
         </div>
       </header>
 
@@ -250,6 +274,7 @@ export default function Home() {
 
         <div className="mx-auto grid min-h-[650px] max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-2">
 
+          {/* HERO TEXT */}
           <div className="relative z-10">
 
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/[0.06] px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-red-500">
@@ -286,7 +311,7 @@ export default function Home() {
 
               <a
                 href="#popular"
-                className="red-button rounded-xl bg-red-600 px-7 py-4 text-sm font-bold hover:bg-red-500"
+                className="red-button rounded-xl bg-red-600 px-7 py-4 text-sm font-bold transition hover:bg-red-500"
               >
                 ▶ Anime Keşfet
               </a>

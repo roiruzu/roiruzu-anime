@@ -2,6 +2,16 @@
 
 import { FormEvent, useState } from "react";
 
+function SiteLogo() {
+  return (
+    <img
+      src="/icon.png"
+      alt="NOX SCANS"
+      className="h-10 w-10 rounded-xl object-contain drop-shadow-[0_0_12px_rgba(220,38,38,0.65)]"
+    />
+  );
+}
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -56,22 +66,15 @@ export default function LoginPage() {
       {/* ANA KART */}
       <div className="relative z-10 w-full max-w-md">
 
-        {/* LOGO */}
+        {/* SITE LOGO */}
         <div className="mb-8 text-center">
-
           <a
             href="/"
             className="inline-flex items-center gap-3"
           >
-
-            <div className="relative h-10 w-10">
-              <div className="absolute left-0 top-1 h-9 w-9 rounded-full bg-red-600 shadow-[0_0_25px_rgba(220,38,38,0.45)]" />
-
-              <div className="absolute left-2 top-0 h-9 w-9 rounded-full bg-[#050505]" />
-            </div>
+            <SiteLogo />
 
             <div className="text-left">
-
               <div className="text-xl font-black tracking-[0.12em]">
                 NOX SCANS
               </div>
@@ -79,18 +82,14 @@ export default function LoginPage() {
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
                 ANIME & MANGA
               </div>
-
             </div>
-
           </a>
-
         </div>
 
         {/* LOGIN CARD */}
         <div className="rounded-3xl border border-white/[0.08] bg-zinc-950/90 p-8 shadow-2xl shadow-black/50 backdrop-blur-xl">
 
           <div className="mb-8">
-
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">
               Hoş Geldin
             </p>
@@ -102,14 +101,12 @@ export default function LoginPage() {
             <p className="mt-2 text-sm leading-6 text-zinc-500">
               Anime dünyasına kaldığın yerden devam et.
             </p>
-
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
 
             {/* EMAIL */}
             <div>
-
               <label className="mb-2 block text-sm font-semibold text-zinc-300">
                 E-posta
               </label>
@@ -123,12 +120,10 @@ export default function LoginPage() {
                 autoComplete="email"
                 className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:border-red-600/60 focus:bg-red-600/[0.03] focus:ring-2 focus:ring-red-600/10"
               />
-
             </div>
 
             {/* PASSWORD */}
             <div>
-
               <label className="mb-2 block text-sm font-semibold text-zinc-300">
                 Şifre
               </label>
@@ -142,7 +137,6 @@ export default function LoginPage() {
                 autoComplete="current-password"
                 className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:border-red-600/60 focus:bg-red-600/[0.03] focus:ring-2 focus:ring-red-600/10"
               />
-
             </div>
 
             {/* HATA */}
@@ -160,7 +154,6 @@ export default function LoginPage() {
             >
               {loading ? "Giriş yapılıyor..." : "Giriş Yap"}
             </button>
-
           </form>
 
           {/* REGISTER */}
@@ -176,25 +169,20 @@ export default function LoginPage() {
             >
               Hesap Oluştur →
             </a>
-
           </div>
-
         </div>
 
         {/* BACK */}
         <div className="mt-6 text-center">
-
           <a
             href="/"
             className="text-sm text-zinc-600 transition hover:text-zinc-300"
           >
             ← Ana sayfaya dön
           </a>
-
         </div>
 
       </div>
-
     </main>
   );
 }

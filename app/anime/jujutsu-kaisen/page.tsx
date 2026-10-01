@@ -2,15 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-function MoonLogo() {
+function SiteLogo() {
   return (
-    <svg
-      viewBox="0 0 40 40"
-      className="h-9 w-9 text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
-      fill="currentColor"
-    >
-      <path d="M27.5 3.5C22.8 6.4 20 11.4 20 17.2C20 25.9 27 33 35.7 33C36.2 33 36.7 33 37.2 32.9C34.2 36.1 29.7 38 24.7 38C15.1 38 7.3 30.2 7.3 20.6C7.3 11.4 14.4 3.8 23.5 3C24.9 2.9 26.2 3.1 27.5 3.5Z" />
-    </svg>
+    <img
+      src="/icon.png"
+      alt="NOX SCANS"
+      className="h-9 w-9 rounded-xl object-contain drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
+    />
   );
 }
 
@@ -171,7 +169,7 @@ export default function JujutsuKaisenPage() {
             className="relative z-[10000] flex items-center gap-3"
           >
 
-            <MoonLogo />
+            <SiteLogo />
 
             <div>
 

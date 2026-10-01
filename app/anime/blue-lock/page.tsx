@@ -2,15 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-function MoonLogo() {
+function SiteLogo() {
   return (
-    <svg
-      viewBox="0 0 40 40"
-      className="h-9 w-9 text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
-      fill="currentColor"
-    >
-      <path d="M27.5 3.5C22.8 6.4 20 11.4 20 17.2C20 25.9 27 33 35.7 33C36.2 33 36.7 33 37.2 32.9C34.2 36.1 29.7 38 24.7 38C15.1 38 7.3 30.2 7.3 20.6C7.3 11.4 14.4 3.8 23.5 3C24.9 2.9 26.2 3.1 27.5 3.5Z" />
-    </svg>
+    <img
+      src="/icon.png"
+      alt="NOX SCANS"
+      className="h-9 w-9 rounded-xl object-contain drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
+    />
   );
 }
 
@@ -117,7 +115,7 @@ export default function BlueLockPage() {
             href="/"
             className="relative z-[10000] flex items-center gap-3"
           >
-            <MoonLogo />
+            <SiteLogo />
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
@@ -130,37 +128,25 @@ export default function BlueLockPage() {
             </div>
           </a>
 
-          <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
-            <a
-              href="/"
-              className="text-zinc-400 transition hover:text-red-500"
-            >
+          <nav className="relative z-[10000] hidden items-center gap-8 text-sm font-medium md:flex">
+            <a href="/" className="text-zinc-400 transition hover:text-red-500">
               Ana Sayfa
             </a>
 
-            <a
-              href="/#popular"
-              className="text-white transition hover:text-red-500"
-            >
+            <a href="/#popular" className="text-white transition hover:text-red-500">
               Animeler
             </a>
 
-            <a
-              href="/#popular"
-              className="text-zinc-400 transition hover:text-red-500"
-            >
+            <a href="/#popular" className="text-zinc-400 transition hover:text-red-500">
               Popüler
             </a>
 
-            <a
-              href="/#genres"
-              className="text-zinc-400 transition hover:text-red-500"
-            >
+            <a href="/#genres" className="text-zinc-400 transition hover:text-red-500">
               Türler
             </a>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="relative z-[10000] flex items-center gap-3">
             <button
               type="button"
               className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-red-500/40 hover:text-red-500 sm:flex"
@@ -176,6 +162,7 @@ export default function BlueLockPage() {
               👤
             </a>
           </div>
+
         </div>
       </header>
 
@@ -184,19 +171,13 @@ export default function BlueLockPage() {
         <div className="mx-auto max-w-7xl px-6 py-14">
 
           <div className="mb-10 flex items-center gap-2 text-sm">
-            <a
-              href="/"
-              className="text-zinc-500 transition hover:text-red-500"
-            >
+            <a href="/" className="text-zinc-500 transition hover:text-red-500">
               Ana Sayfa
             </a>
 
             <span className="text-zinc-700">/</span>
 
-            <a
-              href="/#popular"
-              className="text-zinc-500 transition hover:text-red-500"
-            >
+            <a href="/#popular" className="text-zinc-500 transition hover:text-red-500">
               Animeler
             </a>
 
@@ -229,6 +210,7 @@ export default function BlueLockPage() {
                 </div>
 
                 <div className="absolute bottom-5 left-5">
+
                   <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-red-500">
                     NOX SCANS
                   </div>
@@ -236,6 +218,7 @@ export default function BlueLockPage() {
                   <div className="mt-1 text-xl font-black">
                     BLUE LOCK
                   </div>
+
                 </div>
               </div>
             </div>
@@ -264,6 +247,7 @@ export default function BlueLockPage() {
               </p>
 
               <div className="mt-7 flex flex-wrap gap-2">
+
                 <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
                   ⭐ 8.3
                 </span>
@@ -287,14 +271,14 @@ export default function BlueLockPage() {
                 <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
                   2022
                 </span>
+
               </div>
 
               <p className="mt-8 max-w-2xl text-[15px] leading-8 text-zinc-400">
-                Japonya'nın Dünya Kupası başarısızlığının ardından,
-                ülkenin en iyi forvetini ortaya çıkarmak için Blue Lock
-                adlı özel bir futbol projesi başlatılır. Isagi Yoichi,
-                dünyanın en iyi golcüsü olma yolunda diğer yetenekli
-                oyuncularla mücadele eder.
+                Japonya'nın Dünya Kupası başarısızlığının ardından ülkenin
+                en iyi forvetini yetiştirmek amacıyla Blue Lock projesi
+                başlatılır. Yoichi Isagi, dünyanın en iyi forveti olma
+                yolunda diğer yetenekli oyuncularla mücadele eder.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -319,6 +303,7 @@ export default function BlueLockPage() {
                 </button>
 
               </div>
+
             </div>
           </div>
         </div>
@@ -329,6 +314,7 @@ export default function BlueLockPage() {
         <div className="grid gap-6 lg:grid-cols-[1fr_330px]">
 
           <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
+
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
               Hikaye
             </div>
@@ -338,14 +324,17 @@ export default function BlueLockPage() {
             </h2>
 
             <p className="mt-6 max-w-3xl text-sm leading-8 text-zinc-400">
-              Isagi Yoichi, takımının önemli bir maçta elenmesinin ardından
-              Blue Lock projesine davet edilir. Burada yüzlerce genç forvet,
-              Japonya'nın en iyi golcüsü olabilmek için birbirleriyle
-              yarışmak zorundadır.
+              Japonya'nın futbol geleceğini değiştirmek isteyen Ego
+              Jinpachi, dünyanın en iyi forvetini ortaya çıkarmak için
+              Blue Lock adlı özel bir eğitim tesisi kurar. Yoichi Isagi
+              burada yüzlerce genç forvet arasından hayatta kalmaya
+              çalışırken kendi oyun tarzını keşfetmeye başlar.
             </p>
+
           </div>
 
           <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
+
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
               Bilgiler
             </div>
@@ -392,6 +381,7 @@ export default function BlueLockPage() {
       >
 
         <div className="mb-8 flex items-end justify-between">
+
           <div>
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
               İzle
@@ -409,6 +399,7 @@ export default function BlueLockPage() {
           <div className="hidden text-sm text-zinc-600 sm:block">
             38 Bölüm
           </div>
+
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
@@ -445,6 +436,7 @@ export default function BlueLockPage() {
       </section>
 
       <footer className="relative z-10 border-t border-white/[0.06] py-10 text-center">
+
         <div className="text-sm font-black tracking-[0.15em]">
           NOX SCANS
         </div>
@@ -452,6 +444,7 @@ export default function BlueLockPage() {
         <div className="mt-2 text-xs text-zinc-600">
           © 2026 NOX SCANS — Anime & Manga
         </div>
+
       </footer>
 
     </main>

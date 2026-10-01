@@ -62,18 +62,6 @@ const animeDatabase: Anime[] = [
   },
 ];
 
-function MoonLogo() {
-  return (
-    <svg
-      viewBox="0 0 40 40"
-      className="h-9 w-9 text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
-      fill="currentColor"
-    >
-      <path d="M27.5 3.5C22.8 6.4 20 11.4 20 17.2C20 25.9 27 33 35.7 33C36.2 33 36.7 33 37.2 32.9C34.2 36.1 29.7 38 24.7 38C15.1 38 7.3 30.2 7.3 20.6C7.3 11.4 14.4 3.8 23.5 3C24.9 2.9 26.2 3.1 27.5 3.5Z" />
-    </svg>
-  );
-}
-
 export default function ProfilePage() {
   const glowRef = useRef<HTMLDivElement>(null);
 
@@ -309,11 +297,17 @@ export default function ProfilePage() {
 
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
+          {/* LOGO */}
           <a
             href="/"
             className="relative z-[10000] flex items-center gap-3"
           >
-            <MoonLogo />
+
+            <img
+              src="/icon.png"
+              alt="NOX SCANS"
+              className="h-9 w-9 rounded-xl object-cover drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
+            />
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
@@ -324,6 +318,7 @@ export default function ProfilePage() {
                 ANIME & MANGA
               </div>
             </div>
+
           </a>
 
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
@@ -402,12 +397,10 @@ export default function ProfilePage() {
                 Profil
               </div>
 
-              {/* GERÇEK USERNAME */}
               <h1 className="mt-2 break-words text-4xl font-black sm:text-5xl">
                 {user.username}
               </h1>
 
-              {/* GERÇEK EMAIL */}
               <p className="mt-2 break-all text-sm text-zinc-500">
                 {user.email}
               </p>

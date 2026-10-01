@@ -2,15 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-function MoonLogo() {
+function SiteLogo() {
   return (
-    <svg
-      viewBox="0 0 40 40"
-      className="h-9 w-9 text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
-      fill="currentColor"
-    >
-      <path d="M27.5 3.5C22.8 6.4 20 11.4 20 17.2C20 25.9 27 33 35.7 33C36.2 33 36.7 33 37.2 32.9C34.2 36.1 29.7 38 24.7 38C15.1 38 7.3 30.2 7.3 20.6C7.3 11.4 14.4 3.8 23.5 3C24.9 2.9 26.2 3.1 27.5 3.5Z" />
-    </svg>
+    <img
+      src="/icon.png"
+      alt="NOX SCANS"
+      className="h-9 w-9 rounded-xl object-contain drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
+    />
   );
 }
 
@@ -100,11 +98,13 @@ export default function DemonSlayerPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
+      {/* MOUSE GLOW */}
       <div
         ref={glowRef}
         className="mouse-glow pointer-events-none fixed z-0"
       />
 
+      {/* BACKGROUND */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-red-700/[0.07] blur-[150px]" />
       </div>
@@ -117,7 +117,8 @@ export default function DemonSlayerPage() {
             href="/"
             className="relative z-[10000] flex items-center gap-3"
           >
-            <MoonLogo />
+
+            <SiteLogo />
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
@@ -128,27 +129,43 @@ export default function DemonSlayerPage() {
                 ANIME & MANGA
               </div>
             </div>
+
           </a>
 
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
-            <a href="/" className="text-zinc-400 transition hover:text-red-500">
+
+            <a
+              href="/"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Ana Sayfa
             </a>
 
-            <a href="/#popular" className="text-white transition hover:text-red-500">
+            <a
+              href="/#popular"
+              className="text-white transition hover:text-red-500"
+            >
               Animeler
             </a>
 
-            <a href="/#popular" className="text-zinc-400 transition hover:text-red-500">
+            <a
+              href="/#popular"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Popüler
             </a>
 
-            <a href="/#genres" className="text-zinc-400 transition hover:text-red-500">
+            <a
+              href="/#genres"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Türler
             </a>
+
           </nav>
 
           <div className="flex items-center gap-3">
+
             <button
               type="button"
               className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-red-500/40 hover:text-red-500 sm:flex"
@@ -162,6 +179,7 @@ export default function DemonSlayerPage() {
             >
               👤
             </a>
+
           </div>
 
         </div>
@@ -169,16 +187,25 @@ export default function DemonSlayerPage() {
 
       {/* HERO */}
       <section className="relative z-10 border-b border-white/[0.06]">
+
         <div className="mx-auto max-w-7xl px-6 py-14">
 
+          {/* BREADCRUMB */}
           <div className="mb-10 flex items-center gap-2 text-sm">
-            <a href="/" className="text-zinc-500 transition hover:text-red-500">
+
+            <a
+              href="/"
+              className="text-zinc-500 transition hover:text-red-500"
+            >
               Ana Sayfa
             </a>
 
             <span className="text-zinc-700">/</span>
 
-            <a href="/#popular" className="text-zinc-500 transition hover:text-red-500">
+            <a
+              href="/#popular"
+              className="text-zinc-500 transition hover:text-red-500"
+            >
               Animeler
             </a>
 
@@ -187,8 +214,10 @@ export default function DemonSlayerPage() {
             <span className="text-zinc-300">
               Demon Slayer
             </span>
+
           </div>
 
+          {/* CONTENT */}
           <div className="grid items-center gap-14 lg:grid-cols-[310px_1fr]">
 
             {/* POSTER */}
@@ -211,6 +240,7 @@ export default function DemonSlayerPage() {
                 </div>
 
                 <div className="absolute bottom-5 left-5">
+
                   <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-red-500">
                     NOX SCANS
                   </div>
@@ -218,19 +248,24 @@ export default function DemonSlayerPage() {
                   <div className="mt-1 text-xl font-black">
                     DEMON SLAYER
                   </div>
+
                 </div>
+
               </div>
+
             </div>
 
             {/* INFO */}
             <div>
 
               <div className="flex items-center gap-2">
+
                 <span className="h-2 w-2 rounded-full bg-red-500 shadow-[0_0_12px_#ef4444]" />
 
                 <span className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">
                   Anime
                 </span>
+
               </div>
 
               <h1 className="mt-5 text-6xl font-black leading-[0.88] tracking-tight sm:text-7xl lg:text-8xl">
@@ -245,7 +280,9 @@ export default function DemonSlayerPage() {
                 鬼滅の刃
               </p>
 
+              {/* TAGS */}
               <div className="mt-7 flex flex-wrap gap-2">
+
                 <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
                   ⭐ 8.6
                 </span>
@@ -269,8 +306,10 @@ export default function DemonSlayerPage() {
                 <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
                   2019
                 </span>
+
               </div>
 
+              {/* DESCRIPTION */}
               <p className="mt-8 max-w-2xl text-[15px] leading-8 text-zinc-400">
                 Tanjiro Kamado, ailesini kaybettikten sonra kız kardeşi
                 Nezuko'yu yeniden insana döndürmek ve iblislerin
@@ -278,7 +317,9 @@ export default function DemonSlayerPage() {
                 Avcıları'na katılır.
               </p>
 
+              {/* BUTTONS */}
               <div className="mt-8 flex flex-wrap gap-3">
+
                 <a
                   href="#episodes"
                   className="rounded-xl bg-red-600 px-7 py-4 text-sm font-black shadow-lg shadow-red-950/30 transition hover:bg-red-500"
@@ -295,20 +336,28 @@ export default function DemonSlayerPage() {
                       : "border-white/10 bg-white/[0.03] text-zinc-300 hover:border-red-500/40 hover:text-white"
                   }`}
                 >
-                  {isInList ? "✓ Listemde" : "+ Listeme Ekle"}
+                  {isInList
+                    ? "✓ Listemde"
+                    : "+ Listeme Ekle"}
                 </button>
+
               </div>
 
             </div>
+
           </div>
+
         </div>
+
       </section>
 
       {/* ABOUT */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 py-20">
+
         <div className="grid gap-6 lg:grid-cols-[1fr_330px]">
 
           <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
+
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
               Hikaye
             </div>
@@ -323,9 +372,11 @@ export default function DemonSlayerPage() {
               iblise dönüşür. Tanjiro, onu tekrar insana çevirmek ve
               ailesinin intikamını almak için zorlu bir yolculuğa çıkar.
             </p>
+
           </div>
 
           <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
+
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
               Bilgiler
             </div>
@@ -333,36 +384,61 @@ export default function DemonSlayerPage() {
             <div className="mt-7 space-y-5">
 
               <div className="flex justify-between border-b border-white/[0.06] pb-4">
-                <span className="text-sm text-zinc-500">Puan</span>
-                <span className="font-bold">⭐ 8.6</span>
+                <span className="text-sm text-zinc-500">
+                  Puan
+                </span>
+
+                <span className="font-bold">
+                  ⭐ 8.6
+                </span>
               </div>
 
               <div className="flex justify-between border-b border-white/[0.06] pb-4">
-                <span className="text-sm text-zinc-500">Bölüm</span>
-                <span className="font-bold">63</span>
+                <span className="text-sm text-zinc-500">
+                  Bölüm
+                </span>
+
+                <span className="font-bold">
+                  63
+                </span>
               </div>
 
               <div className="flex justify-between border-b border-white/[0.06] pb-4">
-                <span className="text-sm text-zinc-500">Yıl</span>
-                <span className="font-bold">2019</span>
+                <span className="text-sm text-zinc-500">
+                  Yıl
+                </span>
+
+                <span className="font-bold">
+                  2019
+                </span>
               </div>
 
               <div className="flex justify-between border-b border-white/[0.06] pb-4">
-                <span className="text-sm text-zinc-500">Stüdyo</span>
-                <span className="font-bold">ufotable</span>
+                <span className="text-sm text-zinc-500">
+                  Stüdyo
+                </span>
+
+                <span className="font-bold">
+                  ufotable
+                </span>
               </div>
 
               <div className="flex justify-between">
-                <span className="text-sm text-zinc-500">Tür</span>
+                <span className="text-sm text-zinc-500">
+                  Tür
+                </span>
+
                 <span className="text-right font-bold">
                   Aksiyon / Fantastik
                 </span>
               </div>
 
             </div>
+
           </div>
 
         </div>
+
       </section>
 
       {/* EPISODES */}
@@ -372,7 +448,9 @@ export default function DemonSlayerPage() {
       >
 
         <div className="mb-8 flex items-end justify-between">
+
           <div>
+
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
               İzle
             </div>
@@ -384,47 +462,57 @@ export default function DemonSlayerPage() {
             <p className="mt-2 text-sm text-zinc-500">
               İzlemek istediğin bölümü seç.
             </p>
+
           </div>
 
           <div className="hidden text-sm text-zinc-600 sm:block">
             63 Bölüm
           </div>
+
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
 
-          {Array.from({ length: 63 }, (_, i) => i + 1).map(
-            (episode) => (
-              <a
-                key={episode}
-                href={
-                  episode === 1
-                    ? "/anime/demon-slayer/episode-1"
-                    : "#"
-                }
-                className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:bg-red-600/[0.06]"
-              >
-                <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-600 transition group-hover:text-red-500">
-                  Bölüm
-                </div>
+          {Array.from(
+            { length: 63 },
+            (_, i) => i + 1
+          ).map((episode) => (
 
-                <div className="mt-2 text-2xl font-black">
-                  {String(episode).padStart(2, "0")}
-                </div>
+            <a
+              key={episode}
+              href={
+                episode === 1
+                  ? "/anime/demon-slayer/episode-1"
+                  : "#"
+              }
+              className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:bg-red-600/[0.06]"
+            >
 
-                <div className="mt-3 text-[10px] text-zinc-600 transition group-hover:text-zinc-300">
-                  İzle →
-                </div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-600 transition group-hover:text-red-500">
+                Bölüm
+              </div>
 
-                <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-600 transition-all duration-300 group-hover:w-full" />
-              </a>
-            )
-          )}
+              <div className="mt-2 text-2xl font-black">
+                {String(episode).padStart(2, "0")}
+              </div>
+
+              <div className="mt-3 text-[10px] text-zinc-600 transition group-hover:text-zinc-300">
+                İzle →
+              </div>
+
+              <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-600 transition-all duration-300 group-hover:w-full" />
+
+            </a>
+
+          ))}
 
         </div>
+
       </section>
 
+      {/* FOOTER */}
       <footer className="relative z-10 border-t border-white/[0.06] py-10 text-center">
+
         <div className="text-sm font-black tracking-[0.15em]">
           NOX SCANS
         </div>
@@ -432,6 +520,7 @@ export default function DemonSlayerPage() {
         <div className="mt-2 text-xs text-zinc-600">
           © 2026 NOX SCANS — Anime & Manga
         </div>
+
       </footer>
 
     </main>
