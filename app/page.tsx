@@ -124,6 +124,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
+
       {/* MOUSE GLOW */}
       <div
         ref={glowRef}
@@ -175,7 +176,7 @@ export default function Home() {
             </a>
 
             <a
-              href="#popular"
+              href="/animeler"
               className="text-zinc-400 transition hover:text-red-500"
             >
               Animeler
@@ -193,6 +194,13 @@ export default function Home() {
               className="text-zinc-400 transition hover:text-red-500"
             >
               Türler
+            </a>
+
+            <a
+              href="/kullanicilar"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
+              Kullanıcılar
             </a>
 
           </nav>
@@ -321,6 +329,7 @@ export default function Home() {
                 <div className="text-2xl font-black">
                   500+
                 </div>
+
                 <div className="mt-1 text-sm text-zinc-500">
                   Anime
                 </div>
@@ -332,6 +341,7 @@ export default function Home() {
                 <div className="text-2xl font-black">
                   10K+
                 </div>
+
                 <div className="mt-1 text-sm text-zinc-500">
                   Bölüm
                 </div>
@@ -343,6 +353,7 @@ export default function Home() {
                 <div className="text-2xl font-black">
                   24/7
                 </div>
+
                 <div className="mt-1 text-sm text-zinc-500">
                   Online
                 </div>
@@ -356,12 +367,15 @@ export default function Home() {
           <div className="relative hidden h-[520px] md:block">
 
             <div className="absolute right-8 top-12 h-[400px] w-[270px] rotate-6 overflow-hidden rounded-3xl border border-red-500/20 shadow-2xl shadow-red-950/30">
+
               <img
                 src="/images/demon-slayer.jpg"
                 alt="Demon Slayer"
                 className="h-full w-full object-cover"
               />
+
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+
             </div>
 
             <div className="absolute right-32 top-20 z-10 h-[400px] w-[270px] -rotate-3 overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl">
@@ -375,6 +389,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
 
               <div className="absolute bottom-6 left-6">
+
                 <div className="text-xs font-bold uppercase tracking-widest text-red-500">
                   Featured
                 </div>
@@ -382,6 +397,7 @@ export default function Home() {
                 <div className="mt-1 text-xl font-black">
                   Solo Leveling
                 </div>
+
               </div>
 
             </div>
@@ -389,6 +405,7 @@ export default function Home() {
           </div>
 
         </div>
+
       </section>
 
       {/* POPULAR */}
@@ -400,6 +417,7 @@ export default function Home() {
         <div className="flex items-end justify-between">
 
           <div>
+
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">
               Keşfet
             </p>
@@ -407,6 +425,7 @@ export default function Home() {
             <h2 className="mt-2 text-3xl font-black">
               Popüler Animeler
             </h2>
+
           </div>
 
           <span className="text-sm text-zinc-500">
@@ -468,6 +487,7 @@ export default function Home() {
           ))}
 
         </div>
+
       </section>
 
       {/* FOOTER */}

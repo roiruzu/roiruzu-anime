@@ -55,7 +55,7 @@ const animeDatabase: Anime[] = [
     name: "Demon Slayer",
     slug: "demon-slayer",
     image: "/images/demon-slayer.jpg",
-    rating: "8.6",
+    rating: "8.9",
     episodes: "63 Bölüm",
     year: "2019",
     genres: ["Aksiyon", "Doğaüstü", "Fantastik"],
@@ -72,11 +72,12 @@ export default function ProfilePage() {
   const [userError, setUserError] = useState("");
 
   const [activeTab, setActiveTab] = useState<"list" | "continue">("list");
-  const [loaded, setLoaded] = useState(false);
 
-  /* =========================
-     KULLANICI BİLGİLERİNİ AL
-  ========================= */
+  /*
+   * =========================
+   * KULLANICI BİLGİLERİ
+   * =========================
+   */
 
   useEffect(() => {
     async function loadUser() {
@@ -107,49 +108,77 @@ export default function ProfilePage() {
     loadUser();
   }, []);
 
-  /* =========================
-     LOCAL STORAGE'DAN LİSTEYİ OKU
-  ========================= */
+  /*
+   * =========================
+   * WATCHLIST OKU
+   * =========================
+   */
 
   useEffect(() => {
-    try {
-      const savedList = localStorage.getItem("nox-watchlist");
+    function loadWatchlist() {
+      try {
+        const savedList = localStorage.getItem("tsuki-watchlist");
 
-      if (savedList) {
+        if (!savedList) {
+          setList([]);
+          return;
+        }
+
         const parsedList = JSON.parse(savedList);
 
         if (Array.isArray(parsedList)) {
           setList(parsedList);
+        } else {
+          setList([]);
         }
+      } catch (error) {
+        console.error("WATCHLIST ERROR:", error);
+        setList([]);
       }
-    } catch (error) {
-      console.error("WATCHLIST ERROR:", error);
-      setList([]);
     }
 
-    setLoaded(true);
+    loadWatchlist();
+
+    /*
+     * Aynı sekmede anime eklenip çıkarıldığında
+     * profil otomatik güncellensin.
+     */
+    const handleWatchlistUpdate = () => {
+      loadWatchlist();
+    };
+
+    /*
+     * Başka sekmede localStorage değişirse
+     * profil de güncellensin.
+     */
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === "tsuki-watchlist") {
+        loadWatchlist();
+      }
+    };
+
+    window.addEventListener(
+      "tsuki-watchlist-updated",
+      handleWatchlistUpdate
+    );
+
+    window.addEventListener("storage", handleStorage);
+
+    return () => {
+      window.removeEventListener(
+        "tsuki-watchlist-updated",
+        handleWatchlistUpdate
+      );
+
+      window.removeEventListener("storage", handleStorage);
+    };
   }, []);
 
-  /* =========================
-     LİSTEYİ STORAGE'A KAYDET
-  ========================= */
-
-  useEffect(() => {
-    if (!loaded) return;
-
-    try {
-      localStorage.setItem(
-        "nox-watchlist",
-        JSON.stringify(list)
-      );
-    } catch {
-      // Storage kullanılamazsa uygulama çökmeyecek.
-    }
-  }, [list, loaded]);
-
-  /* =========================
-     MOUSE GLOW
-  ========================= */
+  /*
+   * =========================
+   * MOUSE GLOW
+   * =========================
+   */
 
   useEffect(() => {
     let mouseX = -500;
@@ -180,17 +209,21 @@ export default function ProfilePage() {
     };
   }, []);
 
-  /* =========================
-     KAYITLI ANİMELER
-  ========================= */
+  /*
+   * =========================
+   * KAYITLI ANİMELER
+   * =========================
+   */
 
   const savedAnime = animeDatabase.filter((anime) =>
     list.includes(anime.id)
   );
 
-  /* =========================
-     LİSTEDEN ÇIKAR
-  ========================= */
+  /*
+   * =========================
+   * LİSTEDEN ÇIKAR
+   * =========================
+   */
 
   const removeFromList = (id: string) => {
     setList((current) => {
@@ -198,20 +231,26 @@ export default function ProfilePage() {
 
       try {
         localStorage.setItem(
-          "nox-watchlist",
+          "tsuki-watchlist",
           JSON.stringify(updated)
         );
-      } catch {
-        // Storage hatasında uygulama çökmeyecek.
+
+        window.dispatchEvent(
+          new Event("tsuki-watchlist-updated")
+        );
+      } catch (error) {
+        console.error("WATCHLIST SAVE ERROR:", error);
       }
 
       return updated;
     });
   };
 
-  /* =========================
-     LOADING
-  ========================= */
+  /*
+   * =========================
+   * LOADING
+   * =========================
+   */
 
   if (loadingUser) {
     return (
@@ -227,9 +266,11 @@ export default function ProfilePage() {
     );
   }
 
-  /* =========================
-     GİRİŞ YAPILMAMIŞ
-  ========================= */
+  /*
+   * =========================
+   * GİRİŞ YAPILMAMIŞ
+   * =========================
+   */
 
   if (!user) {
     return (
@@ -282,22 +323,26 @@ export default function ProfilePage() {
     <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
       {/* MOUSE GLOW */}
+
       <div
         ref={glowRef}
         className="mouse-glow pointer-events-none fixed z-0"
       />
 
       {/* BACKGROUND */}
+
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-red-700/[0.07] blur-[150px]" />
       </div>
 
       {/* NAVBAR */}
+
       <header className="sticky top-0 z-[9999] border-b border-white/[0.06] bg-black/75 backdrop-blur-xl">
 
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
           {/* LOGO */}
+
           <a
             href="/"
             className="relative z-[10000] flex items-center gap-3"
@@ -305,13 +350,13 @@ export default function ProfilePage() {
 
             <img
               src="/icon.png"
-              alt="NOX SCANS"
-              className="h-9 w-9 rounded-xl object-cover drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
+              alt="TSUKİSCANS"
+              className="h-10 w-10 rounded-xl object-contain drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
             />
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
-                NOX SCANS
+                TSUKİSCANS
               </div>
 
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
@@ -320,6 +365,8 @@ export default function ProfilePage() {
             </div>
 
           </a>
+
+          {/* NAVIGATION */}
 
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
 
@@ -353,6 +400,8 @@ export default function ProfilePage() {
 
           </nav>
 
+          {/* RIGHT */}
+
           <div className="flex items-center gap-3">
 
             <button
@@ -373,12 +422,15 @@ export default function ProfilePage() {
           </div>
 
         </div>
+
       </header>
 
       {/* PROFILE */}
+
       <section className="relative z-10 mx-auto max-w-7xl px-6 py-14">
 
         {/* PROFILE HEADER */}
+
         <div className="relative overflow-hidden rounded-3xl border border-white/[0.07] bg-white/[0.02]">
 
           <div className="absolute inset-0 bg-gradient-to-r from-red-600/[0.08] via-transparent to-transparent" />
@@ -386,11 +438,13 @@ export default function ProfilePage() {
           <div className="relative flex flex-col gap-6 p-8 sm:flex-row sm:items-center sm:p-10">
 
             {/* AVATAR */}
+
             <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-full border border-red-500/30 bg-red-600/10 text-5xl shadow-[0_0_50px_rgba(220,38,38,0.12)]">
               👤
             </div>
 
             {/* USER INFO */}
+
             <div className="flex-1">
 
               <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
@@ -413,7 +467,7 @@ export default function ProfilePage() {
                   </span>
 
                   <span className="ml-2 font-bold">
-                    {list.length}
+                    {savedAnime.length}
                   </span>
                 </div>
 
@@ -438,9 +492,11 @@ export default function ProfilePage() {
                 </div>
 
               </div>
+
             </div>
 
             {/* SETTINGS */}
+
             <a
               href="/profile/settings"
               className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-bold text-zinc-300 transition hover:border-red-500/40 hover:text-white"
@@ -449,9 +505,11 @@ export default function ProfilePage() {
             </a>
 
           </div>
+
         </div>
 
         {/* TABS */}
+
         <div className="mt-12 flex items-center gap-2 border-b border-white/[0.06]">
 
           <button
@@ -481,6 +539,7 @@ export default function ProfilePage() {
         </div>
 
         {/* LIST */}
+
         {activeTab === "list" && (
           <section className="py-10">
 
@@ -612,6 +671,7 @@ export default function ProfilePage() {
         )}
 
         {/* CONTINUE */}
+
         {activeTab === "continue" && (
           <section className="py-10">
 
@@ -654,14 +714,15 @@ export default function ProfilePage() {
       </section>
 
       {/* FOOTER */}
+
       <footer className="relative z-10 border-t border-white/[0.06] py-10 text-center">
 
         <div className="text-sm font-black tracking-[0.15em]">
-          NOX SCANS
+          TSUKİSCANS
         </div>
 
         <div className="mt-2 text-xs text-zinc-600">
-          © 2026 NOX SCANS — Anime & Manga
+          © 2026 TSUKİSCANS — Anime & Manga
         </div>
 
       </footer>
