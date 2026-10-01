@@ -31,7 +31,8 @@ export default function JujutsuKaisenPage() {
 
         const data = await response.json();
         setUser(data.user ?? null);
-      } catch {
+      } catch (error) {
+        console.error("USER FETCH ERROR:", error);
         setUser(null);
       } finally {
         setLoadingUser(false);
@@ -43,7 +44,7 @@ export default function JujutsuKaisenPage() {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("nox-watchlist");
+      const saved = localStorage.getItem("tsuki-watchlist");
 
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -60,28 +61,28 @@ export default function JujutsuKaisenPage() {
   useEffect(() => {
     let mouseX = -500;
     let mouseY = -500;
-    let frame = 0;
+    let animationFrame = 0;
 
-    function move(event: MouseEvent) {
+    const handleMouseMove = (event: MouseEvent) => {
       mouseX = event.clientX;
       mouseY = event.clientY;
-    }
+    };
 
-    function update() {
+    const updateGlow = () => {
       if (glowRef.current) {
         glowRef.current.style.left = `${mouseX}px`;
         glowRef.current.style.top = `${mouseY}px`;
       }
 
-      frame = requestAnimationFrame(update);
-    }
+      animationFrame = requestAnimationFrame(updateGlow);
+    };
 
-    window.addEventListener("mousemove", move);
-    frame = requestAnimationFrame(update);
+    window.addEventListener("mousemove", handleMouseMove);
+    animationFrame = requestAnimationFrame(updateGlow);
 
     return () => {
-      window.removeEventListener("mousemove", move);
-      cancelAnimationFrame(frame);
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animationFrame);
     };
   }, []);
 
@@ -93,17 +94,24 @@ export default function JujutsuKaisenPage() {
         cache: "no-store",
       });
 
-      if (!response.ok) return;
+      if (!response.ok) {
+        console.error("LOGOUT FAILED");
+        return;
+      }
 
       setUser(null);
       setShowUserMenu(false);
+
       window.location.href = "/";
-    } catch {}
+    } catch (error) {
+      console.error("LOGOUT ERROR:", error);
+    }
   }
 
   function toggleWatchlist() {
     try {
-      const saved = localStorage.getItem("nox-watchlist");
+      const saved = localStorage.getItem("tsuki-watchlist");
+
       let list: string[] = [];
 
       if (saved) {
@@ -122,27 +130,43 @@ export default function JujutsuKaisenPage() {
         setIsInList(true);
       }
 
-      localStorage.setItem("nox-watchlist", JSON.stringify(list));
-      window.dispatchEvent(new Event("nox-watchlist-updated"));
+      localStorage.setItem(
+        "tsuki-watchlist",
+        JSON.stringify(list)
+      );
+
+      window.dispatchEvent(
+        new Event("tsuki-watchlist-updated")
+      );
     } catch {}
   }
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
-      <div ref={glowRef} className="mouse-glow pointer-events-none fixed z-0" />
+      {/* MOUSE GLOW */}
+      <div
+        ref={glowRef}
+        className="mouse-glow pointer-events-none fixed z-0"
+      />
 
+      {/* BACKGROUND */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-red-700/[0.07] blur-[150px]" />
       </div>
 
+      {/* NAVBAR */}
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-black/75 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
-          <a href="/" className="flex items-center gap-3">
+          {/* LOGO - ANA SAYFAYLA AYNI */}
+          <a
+            href="/"
+            className="flex items-center gap-3"
+          >
             <Image
               src="/icon.png"
-              alt="NOX SCANS"
+              alt="TSUKİSCANS"
               width={40}
               height={40}
               priority
@@ -151,60 +175,83 @@ export default function JujutsuKaisenPage() {
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
-                NOX SCANS
+                TSUKİSCANS
               </div>
+
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
                 ANIME & MANGA
               </div>
             </div>
           </a>
 
+          {/* NAVIGATION - ANA SAYFAYLA AYNI */}
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
-            <a href="/" className="text-zinc-400 hover:text-red-500">
+
+            <a
+              href="/"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Ana Sayfa
             </a>
 
-            <a href="/#popular" className="text-white hover:text-red-500">
+            <a
+              href="/#popular"
+              className="text-white transition hover:text-red-500"
+            >
               Animeler
             </a>
 
-            <a href="/#popular" className="text-zinc-400 hover:text-red-500">
+            <a
+              href="/#popular"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Popüler
             </a>
 
-            <a href="/#genres" className="text-zinc-400 hover:text-red-500">
+            <a
+              href="/#genres"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Türler
             </a>
+
           </nav>
 
+          {/* RIGHT SIDE */}
           <div className="flex items-center gap-3">
 
+            {/* SEARCH - ANA SAYFAYLA AYNI */}
             <button
               type="button"
-              className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] sm:flex"
+              className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-red-500/40 hover:text-red-500 sm:flex"
             >
               🔍
             </button>
 
+            {/* USER */}
             {loadingUser ? (
+
               <div className="h-10 w-24 animate-pulse rounded-xl bg-white/10" />
+
             ) : user ? (
+
               <div className="relative">
 
                 <button
                   type="button"
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold hover:bg-red-500"
+                  className="red-button rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold transition hover:bg-red-500"
                 >
                   {user.username}
                 </button>
 
                 {showUserMenu && (
+
                   <div className="absolute right-0 top-14 w-44 overflow-hidden rounded-xl border border-white/10 bg-zinc-950 shadow-2xl">
 
                     <a
                       href="/profile"
-                      className="block px-4 py-3 text-sm text-zinc-300 hover:bg-white/5"
+                      className="block px-4 py-3 text-sm text-zinc-300 transition hover:bg-white/5 hover:text-white"
                     >
                       👤 Profil
                     </a>
@@ -212,45 +259,66 @@ export default function JujutsuKaisenPage() {
                     <button
                       type="button"
                       onClick={logout}
-                      className="block w-full px-4 py-3 text-left text-sm text-red-500 hover:bg-red-500/10"
+                      className="block w-full px-4 py-3 text-left text-sm text-red-500 transition hover:bg-red-500/10"
                     >
                       🚪 Çıkış Yap
                     </button>
 
                   </div>
+
                 )}
 
               </div>
+
             ) : (
+
               <a
                 href="/login"
-                className="rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold hover:bg-red-500"
+                className="red-button rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold transition hover:bg-red-500"
               >
                 Giriş Yap
               </a>
+
             )}
 
           </div>
         </div>
       </header>
 
+      {/* ANIME HEADER */}
       <section className="relative z-10 border-b border-white/[0.06]">
+
         <div className="mx-auto max-w-7xl px-6 py-14">
 
+          {/* BREADCRUMB */}
           <div className="mb-10 flex gap-2 text-sm">
-            <a href="/" className="text-zinc-500 hover:text-red-500">
+
+            <a
+              href="/"
+              className="text-zinc-500 transition hover:text-red-500"
+            >
               Ana Sayfa
             </a>
-            <span className="text-zinc-700">/</span>
-            <span className="text-zinc-300">Jujutsu Kaisen</span>
+
+            <span className="text-zinc-700">
+              /
+            </span>
+
+            <span className="text-zinc-300">
+              Jujutsu Kaisen
+            </span>
+
           </div>
 
           <div className="grid items-center gap-14 lg:grid-cols-[310px_1fr]">
 
+            {/* POSTER */}
             <div className="relative mx-auto w-full max-w-[310px]">
+
               <div className="pointer-events-none absolute -inset-5 rounded-[35px] bg-red-600/[0.08] blur-2xl" />
 
               <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950">
+
                 <img
                   src="/images/jujutsu-kaisen.jpg"
                   alt="Jujutsu Kaisen"
@@ -260,47 +328,74 @@ export default function JujutsuKaisenPage() {
                 <div className="absolute left-5 top-5 rounded-lg border border-red-500/30 bg-red-600/90 px-3 py-1.5 text-xs font-black">
                   HD
                 </div>
+
               </div>
+
             </div>
 
+            {/* INFO */}
             <div>
 
               <div className="flex items-center gap-2">
+
                 <span className="h-2 w-2 rounded-full bg-red-500" />
+
                 <span className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">
                   Anime
                 </span>
+
               </div>
 
               <h1 className="mt-5 text-6xl font-black leading-[0.88] tracking-tight sm:text-7xl lg:text-8xl">
                 Jujutsu
                 <br />
-                <span className="text-red-600">Kaisen</span>
+                <span className="text-red-600">
+                  Kaisen
+                </span>
               </h1>
 
               <p className="mt-5 text-lg text-zinc-500">
                 呪術廻戦
               </p>
 
+              {/* TAGS */}
               <div className="mt-7 flex flex-wrap gap-2">
-                <span className="info-tag">⭐ 8.6</span>
-                <span className="info-tag">Aksiyon</span>
-                <span className="info-tag">Fantastik</span>
-                <span className="info-tag">Shounen</span>
-                <span className="info-tag">47 Bölüm</span>
+
+                <span className="info-tag">
+                  ⭐ 8.6
+                </span>
+
+                <span className="info-tag">
+                  Aksiyon
+                </span>
+
+                <span className="info-tag">
+                  Fantastik
+                </span>
+
+                <span className="info-tag">
+                  Shounen
+                </span>
+
+                <span className="info-tag">
+                  47 Bölüm
+                </span>
+
               </div>
 
+              {/* DESCRIPTION */}
               <p className="mt-8 max-w-2xl text-[15px] leading-8 text-zinc-400">
                 Yuji Itadori, lanetli bir nesneyi yuttuktan sonra
                 Jujutsu büyücüleri dünyasına girer ve güçlü lanetlere
                 karşı mücadele etmeye başlar.
               </p>
 
+              {/* BUTTONS */}
               <div className="mt-8 flex flex-wrap gap-3">
 
                 <a
                   href="#episodes"
-                  className="rounded-xl bg-red-600 px-7 py-4 text-sm font-black hover:bg-red-500"
+                  className="red-button rounded-xl bg-red-600 px-7 py-4 text-sm font-black transition hover:bg-red-500"
                 >
                   ▶ Bölümleri Gör
                 </a>
@@ -308,13 +403,15 @@ export default function JujutsuKaisenPage() {
                 <button
                   type="button"
                   onClick={toggleWatchlist}
-                  className={`rounded-xl border px-7 py-4 text-sm font-bold ${
+                  className={`rounded-xl border px-7 py-4 text-sm font-bold transition ${
                     isInList
                       ? "border-red-500/40 bg-red-600/10 text-red-400"
-                      : "border-white/10 bg-white/[0.03] text-zinc-300"
+                      : "border-white/10 bg-white/[0.03] text-zinc-300 hover:border-red-500/30 hover:text-white"
                   }`}
                 >
-                  {isInList ? "✓ Listemde" : "+ Listeme Ekle"}
+                  {isInList
+                    ? "✓ Listemde"
+                    : "+ Listeme Ekle"}
                 </button>
 
               </div>
@@ -324,7 +421,9 @@ export default function JujutsuKaisenPage() {
         </div>
       </section>
 
+      {/* STORY */}
       <section className="mx-auto max-w-7xl px-6 py-20">
+
         <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
 
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
@@ -341,11 +440,17 @@ export default function JujutsuKaisenPage() {
           </p>
 
         </div>
+
       </section>
 
-      <section id="episodes" className="mx-auto max-w-7xl px-6 pb-24">
+      {/* EPISODES */}
+      <section
+        id="episodes"
+        className="mx-auto max-w-7xl px-6 pb-24"
+      >
 
         <div className="mb-8">
+
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
             İzle
           </div>
@@ -353,11 +458,16 @@ export default function JujutsuKaisenPage() {
           <h2 className="mt-2 text-3xl font-black">
             Jujutsu Kaisen Bölümleri
           </h2>
+
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
 
-          {Array.from({ length: 47 }, (_, i) => i + 1).map((episode) => (
+          {Array.from(
+            { length: 47 },
+            (_, i) => i + 1
+          ).map((episode) => (
+
             <a
               key={episode}
               href={
@@ -365,9 +475,10 @@ export default function JujutsuKaisenPage() {
                   ? "/anime/jujutsu-kaisen/episode-1"
                   : "#"
               }
-              className="group rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 hover:-translate-y-1 hover:border-red-500/40"
+              className="group rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition hover:-translate-y-1 hover:border-red-500/40"
             >
-              <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-600 group-hover:text-red-500">
+
+              <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-600 transition group-hover:text-red-500">
                 Bölüm
               </div>
 
@@ -378,19 +489,26 @@ export default function JujutsuKaisenPage() {
               <div className="mt-3 text-[10px] text-zinc-600">
                 İzle →
               </div>
+
             </a>
+
           ))}
 
         </div>
+
       </section>
 
+      {/* FOOTER */}
       <footer className="border-t border-white/[0.06] py-10 text-center">
+
         <div className="text-sm font-black tracking-[0.15em]">
-          NOX SCANS
+          TSUKİSCANS
         </div>
+
         <div className="mt-2 text-xs text-zinc-600">
-          © 2026 NOX SCANS — Anime & Manga
+          © 2026 TSUKİSCANS — ANIME & MANGA
         </div>
+
       </footer>
 
     </main>

@@ -43,7 +43,7 @@ export default function DemonSlayerPage() {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("nox-watchlist");
+      const saved = localStorage.getItem("tsuki-watchlist");
 
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -97,13 +97,14 @@ export default function DemonSlayerPage() {
 
       setUser(null);
       setShowUserMenu(false);
+
       window.location.href = "/";
     } catch {}
   }
 
   function toggleWatchlist() {
     try {
-      const saved = localStorage.getItem("nox-watchlist");
+      const saved = localStorage.getItem("tsuki-watchlist");
 
       let list: string[] = [];
 
@@ -123,9 +124,9 @@ export default function DemonSlayerPage() {
         setIsInList(true);
       }
 
-      localStorage.setItem("nox-watchlist", JSON.stringify(list));
+      localStorage.setItem("tsuki-watchlist", JSON.stringify(list));
 
-      window.dispatchEvent(new Event("nox-watchlist-updated"));
+      window.dispatchEvent(new Event("tsuki-watchlist-updated"));
     } catch {}
   }
 
@@ -148,7 +149,7 @@ export default function DemonSlayerPage() {
           <a href="/" className="flex items-center gap-3">
             <Image
               src="/icon.png"
-              alt="NOX SCANS"
+              alt="Tsuki Scans"
               width={40}
               height={40}
               priority
@@ -157,7 +158,7 @@ export default function DemonSlayerPage() {
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
-                NOX SCANS
+                Tsuki Scans
               </div>
 
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
@@ -166,24 +167,40 @@ export default function DemonSlayerPage() {
             </div>
           </a>
 
+          {/* NAVIGATION */}
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
-            <a href="/" className="text-zinc-400 transition hover:text-red-500">
+
+            <a
+              href="/"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Ana Sayfa
             </a>
 
-            <a href="/#popular" className="text-white transition hover:text-red-500">
+            <a
+              href="/#popular"
+              className="text-white transition hover:text-red-500"
+            >
               Animeler
             </a>
 
-            <a href="/#popular" className="text-zinc-400 transition hover:text-red-500">
+            <a
+              href="/#popular"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Popüler
             </a>
 
-            <a href="/#genres" className="text-zinc-400 transition hover:text-red-500">
+            <a
+              href="/#genres"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Türler
             </a>
+
           </nav>
 
+          {/* RIGHT SIDE */}
           <div className="flex items-center gap-3">
 
             <button
@@ -194,8 +211,11 @@ export default function DemonSlayerPage() {
             </button>
 
             {loadingUser ? (
+
               <div className="h-10 w-24 animate-pulse rounded-xl bg-white/10" />
+
             ) : user ? (
+
               <div className="relative">
 
                 <button
@@ -207,6 +227,7 @@ export default function DemonSlayerPage() {
                 </button>
 
                 {showUserMenu && (
+
                   <div className="absolute right-0 top-14 w-44 overflow-hidden rounded-xl border border-white/10 bg-zinc-950 shadow-2xl">
 
                     <a
@@ -225,19 +246,24 @@ export default function DemonSlayerPage() {
                     </button>
 
                   </div>
+
                 )}
 
               </div>
+
             ) : (
+
               <a
                 href="/login"
                 className="rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold transition hover:bg-red-500"
               >
                 Giriş Yap
               </a>
+
             )}
 
           </div>
+
         </div>
       </header>
 
@@ -246,7 +272,11 @@ export default function DemonSlayerPage() {
         <div className="mx-auto max-w-7xl px-6 py-14">
 
           <div className="mb-10 flex gap-2 text-sm">
-            <a href="/" className="text-zinc-500 hover:text-red-500">
+
+            <a
+              href="/"
+              className="text-zinc-500 hover:text-red-500"
+            >
               Ana Sayfa
             </a>
 
@@ -255,6 +285,7 @@ export default function DemonSlayerPage() {
             <span className="text-zinc-300">
               Demon Slayer
             </span>
+
           </div>
 
           <div className="grid items-center gap-14 lg:grid-cols-[310px_1fr]">
@@ -281,11 +312,13 @@ export default function DemonSlayerPage() {
             <div>
 
               <div className="flex items-center gap-2">
+
                 <span className="h-2 w-2 rounded-full bg-red-500" />
 
                 <span className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">
                   Anime
                 </span>
+
               </div>
 
               <h1 className="mt-5 text-6xl font-black leading-[0.88] tracking-tight sm:text-7xl lg:text-8xl">
@@ -326,9 +359,9 @@ export default function DemonSlayerPage() {
 
               <p className="mt-8 max-w-2xl text-[15px] leading-8 text-zinc-400">
                 Ailesinin bir iblis saldırısında hayatını kaybetmesinin
-                ardından Tanjiro Kamado, kız kardeşi Nezuko'yu yeniden
+                ardından Tanjiro Kamado, kız kardeşi Nezuko&apos;yu yeniden
                 insana döndürmek ve iblisleri durdurmak için Demon
-                Slayer Corps'a katılır.
+                Slayer Corps&apos;a katılır.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -355,12 +388,14 @@ export default function DemonSlayerPage() {
               </div>
 
             </div>
+
           </div>
         </div>
       </section>
 
       {/* STORY */}
       <section className="mx-auto max-w-7xl px-6 py-20">
+
         <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
 
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
@@ -372,9 +407,9 @@ export default function DemonSlayerPage() {
           </h2>
 
           <p className="mt-6 max-w-3xl text-sm leading-8 text-zinc-400">
-            Tanjiro Kamado'nun ailesi bir iblis saldırısında hayatını
+            Tanjiro Kamado&apos;nun ailesi bir iblis saldırısında hayatını
             kaybeder. Kız kardeşi Nezuko ise iblise dönüşür. Tanjiro,
-            Nezuko'yu tekrar insana çevirmek ve iblislerin kaynağını
+            Nezuko&apos;yu tekrar insana çevirmek ve iblislerin kaynağını
             bulmak için zorlu bir yolculuğa çıkar.
           </p>
 
@@ -382,9 +417,13 @@ export default function DemonSlayerPage() {
       </section>
 
       {/* EPISODES */}
-      <section id="episodes" className="mx-auto max-w-7xl px-6 pb-24">
+      <section
+        id="episodes"
+        className="mx-auto max-w-7xl px-6 pb-24"
+      >
 
         <div className="mb-8">
+
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
             İzle
           </div>
@@ -392,11 +431,13 @@ export default function DemonSlayerPage() {
           <h2 className="mt-2 text-3xl font-black">
             Demon Slayer Bölümleri
           </h2>
+
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
 
           {Array.from({ length: 63 }, (_, i) => i + 1).map((episode) => (
+
             <a
               key={episode}
               href={
@@ -406,6 +447,7 @@ export default function DemonSlayerPage() {
               }
               className="group rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition hover:-translate-y-1 hover:border-red-500/40"
             >
+
               <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-600 group-hover:text-red-500">
                 Bölüm
               </div>
@@ -417,20 +459,23 @@ export default function DemonSlayerPage() {
               <div className="mt-3 text-[10px] text-zinc-600 group-hover:text-zinc-300">
                 İzle →
               </div>
+
             </a>
+
           ))}
 
         </div>
       </section>
 
+      {/* FOOTER */}
       <footer className="border-t border-white/[0.06] py-10 text-center">
 
         <div className="text-sm font-black tracking-[0.15em]">
-          NOX SCANS
+          Tsuki Scans
         </div>
 
         <div className="mt-2 text-xs text-zinc-600">
-          © 2026 NOX SCANS — Anime & Manga
+          © 2026 Tsuki Scans — Anime & Manga
         </div>
 
       </footer>

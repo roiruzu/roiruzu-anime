@@ -43,7 +43,7 @@ export default function BlueLockPage() {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("nox-watchlist");
+      const saved = localStorage.getItem("tsuki-watchlist");
 
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -103,7 +103,7 @@ export default function BlueLockPage() {
 
   function toggleWatchlist() {
     try {
-      const saved = localStorage.getItem("nox-watchlist");
+      const saved = localStorage.getItem("tsuki-watchlist");
       let list: string[] = [];
 
       if (saved) {
@@ -122,8 +122,8 @@ export default function BlueLockPage() {
         setIsInList(true);
       }
 
-      localStorage.setItem("nox-watchlist", JSON.stringify(list));
-      window.dispatchEvent(new Event("nox-watchlist-updated"));
+      localStorage.setItem("tsuki-watchlist", JSON.stringify(list));
+      window.dispatchEvent(new Event("tsuki-watchlist-updated"));
     } catch {}
   }
 
@@ -146,7 +146,7 @@ export default function BlueLockPage() {
 
             <Image
               src="/icon.png"
-              alt="NOX SCANS"
+              alt="Tsuki Scans"
               width={40}
               height={40}
               priority
@@ -155,7 +155,7 @@ export default function BlueLockPage() {
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
-                NOX SCANS
+                Tsuki Scans
               </div>
 
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
@@ -472,11 +472,11 @@ export default function BlueLockPage() {
       <footer className="border-t border-white/[0.06] py-10 text-center">
 
         <div className="text-sm font-black tracking-[0.15em]">
-          NOX SCANS
+          Tsuki Scans
         </div>
 
         <div className="mt-2 text-xs text-zinc-600">
-          © 2026 NOX SCANS — Anime & Manga
+          © 2026 Tsuki Scans — Anime & Manga
         </div>
 
       </footer>
