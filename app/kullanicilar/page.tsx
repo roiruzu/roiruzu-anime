@@ -9,8 +9,12 @@ type User = {
   createdAt: string;
 };
 
-const FOUNDER_USERNAME = "Roiruzu";
+const FOUNDER_USERNAMES = ["Roiruzu", "Anti Spiral"];
 const EXECUTIVE_USERNAME = "Waerypp";
+
+function normalizeUsername(username: string) {
+  return username.trim().toLowerCase();
+}
 
 export default function KullanicilarPage() {
   const glowRef = useRef<HTMLDivElement>(null);
@@ -74,6 +78,7 @@ export default function KullanicilarPage() {
         }
 
         const data = await response.json();
+
         setUsers(data.users ?? []);
       } catch (error) {
         console.error("USERS FETCH ERROR:", error);
@@ -109,6 +114,7 @@ export default function KullanicilarPage() {
     };
 
     window.addEventListener("mousemove", handleMouseMove);
+
     animationFrame = requestAnimationFrame(updateGlow);
 
     return () => {
@@ -148,26 +154,52 @@ export default function KullanicilarPage() {
   ========================= */
 
   const filteredUsers = users.filter((user) =>
-    user.username.toLowerCase().includes(search.toLowerCase())
+    normalizeUsername(user.username).includes(
+      normalizeUsername(search)
+    )
   );
 
-  const founder = filteredUsers.find(
-    (user) =>
-      user.username.toLowerCase() === FOUNDER_USERNAME.toLowerCase()
-  );
+  /* =========================
+     FOUNDERS
+     Roiruzu HER ZAMAN İLK
+  ========================= */
+
+  const founders = FOUNDER_USERNAMES
+    .map((founderName) =>
+      filteredUsers.find(
+        (user) =>
+          normalizeUsername(user.username) ===
+          normalizeUsername(founderName)
+      )
+    )
+    .filter((user): user is User => Boolean(user));
+
+  /* =========================
+     EXECUTIVE
+  ========================= */
 
   const executive = filteredUsers.find(
     (user) =>
-      user.username.toLowerCase() === EXECUTIVE_USERNAME.toLowerCase()
+      normalizeUsername(user.username) ===
+      normalizeUsername(EXECUTIVE_USERNAME)
   );
 
-  const members = filteredUsers.filter((user) => {
-    const username = user.username.toLowerCase();
+  /* =========================
+     MEMBERS
+  ========================= */
 
-    return (
-      username !== FOUNDER_USERNAME.toLowerCase() &&
-      username !== EXECUTIVE_USERNAME.toLowerCase()
+  const members = filteredUsers.filter((user) => {
+    const username = normalizeUsername(user.username);
+
+    const isFounder = FOUNDER_USERNAMES.some(
+      (founder) =>
+        normalizeUsername(founder) === username
     );
+
+    const isExecutive =
+      username === normalizeUsername(EXECUTIVE_USERNAME);
+
+    return !isFounder && !isExecutive;
   });
 
   return (
@@ -187,11 +219,13 @@ export default function KullanicilarPage() {
       ========================= */}
 
       <div className="pointer-events-none fixed inset-0 z-0">
+
         <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-red-700/[0.07] blur-[150px]" />
 
         <div className="absolute right-[-250px] top-[35%] h-[500px] w-[500px] rounded-full bg-red-700/[0.035] blur-[150px]" />
 
-        <div className="absolute left-[-250px] bottom-[-200px] h-[500px] w-[500px] rounded-full bg-red-700/[0.025] blur-[150px]" />
+        <div className="absolute bottom-[-200px] left-[-250px] h-[500px] w-[500px] rounded-full bg-red-700/[0.025] blur-[150px]" />
+
       </div>
 
       {/* =========================
@@ -199,6 +233,7 @@ export default function KullanicilarPage() {
       ========================= */}
 
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-black/75 backdrop-blur-xl">
+
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
           {/* LOGO */}
@@ -207,6 +242,7 @@ export default function KullanicilarPage() {
             href="/"
             className="flex items-center gap-3"
           >
+
             <Image
               src="/icon.png"
               alt="TSUKİSCANS"
@@ -217,6 +253,7 @@ export default function KullanicilarPage() {
             />
 
             <div>
+
               <div className="text-xl font-black tracking-[0.12em]">
                 TSUKİSCANS
               </div>
@@ -224,7 +261,9 @@ export default function KullanicilarPage() {
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
                 ANIME & MANGA
               </div>
+
             </div>
+
           </a>
 
           {/* NAVIGATION */}
@@ -272,12 +311,13 @@ export default function KullanicilarPage() {
 
           <div className="flex items-center gap-3">
 
-            {/* SEARCH ICON */}
+            {/* SEARCH */}
 
             <button
               type="button"
               className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-red-500/40 hover:text-red-500 sm:flex"
             >
+
               <svg
                 className="h-5 w-5"
                 viewBox="0 0 24 24"
@@ -288,6 +328,7 @@ export default function KullanicilarPage() {
                 <circle cx="11" cy="11" r="7" />
                 <path d="m20 20-3.5-3.5" />
               </svg>
+
             </button>
 
             {/* USER */}
@@ -302,7 +343,9 @@ export default function KullanicilarPage() {
 
                 <button
                   type="button"
-                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  onClick={() =>
+                    setShowUserMenu(!showUserMenu)
+                  }
                   className="red-button rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold transition hover:bg-red-500"
                 >
                   {currentUser.username}
@@ -347,6 +390,7 @@ export default function KullanicilarPage() {
           </div>
 
         </div>
+
       </header>
 
       {/* =========================
@@ -372,11 +416,15 @@ export default function KullanicilarPage() {
             <div>
 
               <h1 className="text-5xl font-black leading-none tracking-tight md:text-6xl">
+
                 Topluluk
+
                 <br />
+
                 <span className="text-red-600 drop-shadow-[0_0_25px_rgba(220,38,38,0.2)]">
                   Üyeleri.
                 </span>
+
               </h1>
 
               <p className="mt-6 max-w-xl text-base leading-7 text-zinc-400">
@@ -413,7 +461,9 @@ export default function KullanicilarPage() {
             <input
               type="text"
               value={search}
-              onChange={(event) => setSearch(event.target.value)}
+              onChange={(event) =>
+                setSearch(event.target.value)
+              }
               placeholder="Kullanıcı adı ara..."
               className="h-14 w-full rounded-2xl border border-white/10 bg-white/[0.03] px-5 pr-14 text-sm text-white outline-none placeholder:text-zinc-600 transition focus:border-red-500/40 focus:bg-white/[0.045]"
             />
@@ -436,6 +486,7 @@ export default function KullanicilarPage() {
         {/* LOADING */}
 
         {loading && (
+
           <div className="py-24 text-center">
 
             <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-white/10 border-t-red-500" />
@@ -445,6 +496,7 @@ export default function KullanicilarPage() {
             </p>
 
           </div>
+
         )}
 
         {/* EMPTY */}
@@ -470,10 +522,10 @@ export default function KullanicilarPage() {
         )}
 
         {/* =========================
-            FOUNDER
+            FOUNDERS
         ========================= */}
 
-        {!loading && founder && (
+        {!loading && founders.length > 0 && (
 
           <section className="mb-12">
 
@@ -486,7 +538,7 @@ export default function KullanicilarPage() {
                 </p>
 
                 <h2 className="mt-1 text-xl font-black">
-                  Kurucu
+                  Kurucular
                 </h2>
 
               </div>
@@ -495,52 +547,63 @@ export default function KullanicilarPage() {
 
             </div>
 
-            <a
-              href={`/profil/${founder.username}`}
-              className="group relative flex overflow-hidden rounded-3xl border border-red-500/20 bg-red-500/[0.045] p-7 transition duration-300 hover:border-red-500/50 hover:bg-red-500/[0.07]"
-            >
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
 
-              <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-red-600/[0.07] blur-[80px]" />
+              {founders.map((founder) => (
 
-              <div className="relative flex w-full items-center gap-6">
+                <a
+                  key={founder.id}
+                  href={`/profil/${founder.username}`}
+                  className="group relative flex overflow-hidden rounded-3xl border border-red-500/20 bg-red-500/[0.045] p-7 transition duration-300 hover:border-red-500/50 hover:bg-red-500/[0.07]"
+                >
 
-                <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl border border-red-500/30 bg-red-600/10 text-4xl font-black text-red-500 shadow-[0_0_35px_rgba(220,38,38,0.12)]">
-                  {founder.username.charAt(0).toUpperCase()}
-                </div>
+                  <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-red-600/[0.07] blur-[80px]" />
 
-                <div className="min-w-0 flex-1">
+                  <div className="relative flex w-full items-center gap-5">
 
-                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-red-500/30 bg-red-600/10 text-3xl font-black text-red-500 shadow-[0_0_35px_rgba(220,38,38,0.12)]">
+                      {founder.username
+                        .charAt(0)
+                        .toUpperCase()}
+                    </div>
 
-                    <h3 className="text-2xl font-black">
-                      {founder.username}
-                    </h3>
+                    <div className="min-w-0 flex-1">
 
-                    <span className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-red-500">
-                      KURUCU
-                    </span>
+                      <div className="flex flex-wrap items-center gap-2">
+
+                        <h3 className="truncate text-xl font-black">
+                          {founder.username}
+                        </h3>
+
+                        <span className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-red-500">
+                          KURUCU
+                        </span>
+
+                      </div>
+
+                      <p className="mt-2 text-sm text-zinc-500">
+                        Tsuki Scans Kurucusu
+                      </p>
+
+                    </div>
+
+                    <svg
+                      className="hidden h-6 w-6 text-zinc-700 transition group-hover:translate-x-1 group-hover:text-red-500 md:block"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="m9 18 6-6-6-6" />
+                    </svg>
 
                   </div>
 
-                  <p className="mt-2 text-sm text-zinc-500">
-                    Tsuki Scans Kurucusu
-                  </p>
+                </a>
 
-                </div>
+              ))}
 
-                <svg
-                  className="hidden h-6 w-6 text-zinc-700 transition group-hover:translate-x-1 group-hover:text-red-500 md:block"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-
-              </div>
-
-            </a>
+            </div>
 
           </section>
 
@@ -582,7 +645,9 @@ export default function KullanicilarPage() {
               <div className="relative flex w-full items-center gap-6">
 
                 <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-orange-500/30 bg-orange-500/10 text-3xl font-black text-orange-400">
-                  {executive.username.charAt(0).toUpperCase()}
+                  {executive.username
+                    .charAt(0)
+                    .toUpperCase()}
                 </div>
 
                 <div className="min-w-0 flex-1">
@@ -674,7 +739,9 @@ export default function KullanicilarPage() {
                     <div className="flex items-center justify-between">
 
                       <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] text-3xl font-black text-zinc-500 transition group-hover:border-red-500/30 group-hover:bg-red-600/10 group-hover:text-red-500">
-                        {user.username.charAt(0).toUpperCase()}
+                        {user.username
+                          .charAt(0)
+                          .toUpperCase()}
                       </div>
 
                       <svg
@@ -743,9 +810,7 @@ export default function KullanicilarPage() {
 
       </section>
 
-      {/* =========================
-          FOOTER
-      ========================= */}
+      {/* FOOTER */}
 
       <footer className="relative z-10 border-t border-white/[0.06] py-10 text-center text-sm text-zinc-600">
         © 2026 TSUKİSCANS
