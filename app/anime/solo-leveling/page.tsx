@@ -48,25 +48,19 @@ export default function SoloLevelingPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
-      {/* MOUSE GLOW */}
       <div
         ref={glowRef}
-        className="mouse-glow"
+        className="mouse-glow pointer-events-none fixed z-0"
       />
 
-      {/* BACKGROUND GLOW */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-red-700/[0.07] blur-[150px]" />
       </div>
 
-      {/* NAVBAR */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-black/75 backdrop-blur-xl">
+      <header className="sticky top-0 z-[9999] border-b border-white/[0.06] bg-black/75 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
-          <a
-            href="/"
-            className="flex items-center gap-3"
-          >
+          <a href="/" className="relative z-[10000] flex items-center gap-3">
             <MoonLogo />
 
             <div>
@@ -80,96 +74,67 @@ export default function SoloLevelingPage() {
             </div>
           </a>
 
-          <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
-
-            <a
-              href="/"
-              className="text-zinc-400 transition hover:text-red-500"
-            >
+          <nav className="relative z-[10000] hidden items-center gap-8 text-sm font-medium md:flex">
+            <a href="/" className="text-zinc-400 transition hover:text-red-500">
               Ana Sayfa
             </a>
 
-            <a
-              href="/#popular"
-              className="text-white transition hover:text-red-500"
-            >
+            <a href="/#popular" className="text-white transition hover:text-red-500">
               Animeler
             </a>
 
-            <a
-              href="/#popular"
-              className="text-zinc-400 transition hover:text-red-500"
-            >
+            <a href="/#popular" className="text-zinc-400 transition hover:text-red-500">
               Popüler
             </a>
 
-            <a
-              href="/#genres"
-              className="text-zinc-400 transition hover:text-red-500"
-            >
+            <a href="/#genres" className="text-zinc-400 transition hover:text-red-500">
               Türler
             </a>
-
           </nav>
 
-          <div className="flex items-center gap-3">
-
-            <button className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-red-500/40 hover:text-red-500 sm:flex">
+          <div className="relative z-[10000] flex items-center gap-3">
+            <button
+              type="button"
+              className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-red-500/40 hover:text-red-500 sm:flex"
+            >
               🔍
             </button>
 
-            <button className="red-button rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold hover:bg-red-500">
+            <a
+              href="/login"
+              className="red-button relative z-[10001] inline-flex cursor-pointer items-center justify-center rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold transition hover:bg-red-500"
+            >
               Giriş Yap
-            </button>
-
+            </a>
           </div>
-
         </div>
       </header>
 
-      {/* HERO */}
       <section className="relative z-10 border-b border-white/[0.06]">
-
         <div className="mx-auto max-w-7xl px-6 py-14">
 
-          {/* BREADCRUMB */}
           <div className="mb-10 flex items-center gap-2 text-sm">
-
-            <a
-              href="/"
-              className="text-zinc-500 transition hover:text-red-500"
-            >
+            <a href="/" className="text-zinc-500 transition hover:text-red-500">
               Ana Sayfa
             </a>
 
-            <span className="text-zinc-700">
-              /
-            </span>
+            <span className="text-zinc-700">/</span>
 
-            <a
-              href="/#popular"
-              className="text-zinc-500 transition hover:text-red-500"
-            >
+            <a href="/#popular" className="text-zinc-500 transition hover:text-red-500">
               Animeler
             </a>
 
-            <span className="text-zinc-700">
-              /
-            </span>
+            <span className="text-zinc-700">/</span>
 
             <span className="text-zinc-300">
               Solo Leveling
             </span>
-
           </div>
 
-          {/* CONTENT */}
           <div className="grid items-center gap-14 lg:grid-cols-[310px_1fr]">
 
-            {/* POSTER */}
             <div className="relative mx-auto w-full max-w-[310px]">
-
-              <div className="absolute -inset-5 rounded-[35px] bg-red-600/[0.08] blur-2xl" />
+              <div className="pointer-events-none absolute -inset-5 rounded-[35px] bg-red-600/[0.08] blur-2xl" />
 
               <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl">
 
@@ -179,14 +144,13 @@ export default function SoloLevelingPage() {
                   className="aspect-[3/4] w-full object-cover transition duration-700 group-hover:scale-105"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
 
                 <div className="absolute left-5 top-5 rounded-lg border border-red-500/30 bg-red-600/90 px-3 py-1.5 text-xs font-black">
                   HD
                 </div>
 
                 <div className="absolute bottom-5 left-5">
-
                   <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-red-500">
                     NOX SCANS
                   </div>
@@ -194,24 +158,19 @@ export default function SoloLevelingPage() {
                   <div className="mt-1 text-xl font-black">
                     SOLO LEVELING
                   </div>
-
                 </div>
 
               </div>
-
             </div>
 
-            {/* INFO */}
             <div>
 
               <div className="flex items-center gap-2">
-
                 <span className="h-2 w-2 rounded-full bg-red-500 shadow-[0_0_12px_#ef4444]" />
 
                 <span className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">
                   Anime
                 </span>
-
               </div>
 
               <h1 className="mt-5 text-6xl font-black leading-[0.88] tracking-tight sm:text-7xl lg:text-8xl">
@@ -226,9 +185,7 @@ export default function SoloLevelingPage() {
                 俺だけレベルアップな件
               </p>
 
-              {/* TAGS */}
               <div className="mt-7 flex flex-wrap gap-2">
-
                 <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
                   ⭐ 8.8
                 </span>
@@ -252,20 +209,16 @@ export default function SoloLevelingPage() {
                 <span className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-zinc-300">
                   2024
                 </span>
-
               </div>
 
-              {/* DESCRIPTION */}
               <p className="mt-8 max-w-2xl text-[15px] leading-8 text-zinc-400">
                 Dünyanın en zayıf avcısı olarak bilinen Sung Jin-Woo,
-                gizemli bir sistem sayesinde benzersiz bir güç elde eder.
-                Artık yalnızca hayatta kalmak değil, dünyanın en güçlü
-                avcısı olmak için mücadele edecektir.
+                ölümcül bir zindanda gizemli bir sistem tarafından seçilir.
+                Bu sistem sayesinde yalnızca kendisinin seviye atlayabildiği
+                inanılmaz bir güç elde eder.
               </p>
 
-              {/* BUTTONS */}
               <div className="mt-8 flex flex-wrap gap-3">
-
                 <a
                   href="#episodes"
                   className="red-button rounded-xl bg-red-600 px-7 py-4 text-sm font-black shadow-lg shadow-red-950/30 hover:bg-red-500"
@@ -273,28 +226,23 @@ export default function SoloLevelingPage() {
                   ▶ Bölümleri Gör
                 </a>
 
-                <button className="rounded-xl border border-white/10 bg-white/[0.03] px-7 py-4 text-sm font-bold text-zinc-300 transition hover:border-red-500/40 hover:text-white">
+                <button
+                  type="button"
+                  className="rounded-xl border border-white/10 bg-white/[0.03] px-7 py-4 text-sm font-bold text-zinc-300 transition hover:border-red-500/40 hover:text-white"
+                >
                   + Listeme Ekle
                 </button>
-
               </div>
 
             </div>
-
           </div>
-
         </div>
-
       </section>
 
-      {/* ABOUT */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 py-20">
-
         <div className="grid gap-6 lg:grid-cols-[1fr_330px]">
 
-          {/* STORY */}
           <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
-
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
               Hikaye
             </div>
@@ -304,18 +252,15 @@ export default function SoloLevelingPage() {
             </h2>
 
             <p className="mt-6 max-w-3xl text-sm leading-8 text-zinc-400">
-              İnsanlığın karşı karşıya olduğu gizemli kapılar ve
-              canavarlar, dünyada özel güçlere sahip avcıların ortaya
-              çıkmasına neden olur. Sung Jin-Woo ise bu avcılar arasında
-              en zayıf olanlardan biridir. Ancak gizemli bir sistem,
-              onun seviyesini yükseltebilmesini sağlar.
+              Sung Jin-Woo, düşük seviyeli bir avcı olarak hayatını
+              sürdürürken gizemli bir çift zindanda ölümün eşiğine gelir.
+              Burada kendisine özel bir sistem tarafından seçilir. Artık
+              yalnızca o seviye atlayabilir ve her görevle birlikte daha da
+              güçlü hale gelir.
             </p>
-
           </div>
 
-          {/* DETAILS */}
           <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
-
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
               Bilgiler
             </div>
@@ -323,73 +268,45 @@ export default function SoloLevelingPage() {
             <div className="mt-7 space-y-5">
 
               <div className="flex justify-between border-b border-white/[0.06] pb-4">
-                <span className="text-sm text-zinc-500">
-                  Puan
-                </span>
-
-                <span className="font-bold">
-                  ⭐ 8.8
-                </span>
+                <span className="text-sm text-zinc-500">Puan</span>
+                <span className="font-bold">⭐ 8.8</span>
               </div>
 
               <div className="flex justify-between border-b border-white/[0.06] pb-4">
-                <span className="text-sm text-zinc-500">
-                  Bölüm
-                </span>
-
-                <span className="font-bold">
-                  25
-                </span>
+                <span className="text-sm text-zinc-500">Bölüm</span>
+                <span className="font-bold">25</span>
               </div>
 
               <div className="flex justify-between border-b border-white/[0.06] pb-4">
-                <span className="text-sm text-zinc-500">
-                  Yıl
-                </span>
-
-                <span className="font-bold">
-                  2024
-                </span>
+                <span className="text-sm text-zinc-500">Yıl</span>
+                <span className="font-bold">2024</span>
               </div>
 
               <div className="flex justify-between border-b border-white/[0.06] pb-4">
-                <span className="text-sm text-zinc-500">
-                  Stüdyo
-                </span>
-
-                <span className="font-bold">
-                  A-1 Pictures
-                </span>
+                <span className="text-sm text-zinc-500">Stüdyo</span>
+                <span className="font-bold">A-1 Pictures</span>
               </div>
 
               <div className="flex justify-between">
-                <span className="text-sm text-zinc-500">
-                  Tür
-                </span>
-
+                <span className="text-sm text-zinc-500">Tür</span>
                 <span className="text-right font-bold">
                   Aksiyon / Fantastik
                 </span>
               </div>
 
             </div>
-
           </div>
 
         </div>
-
       </section>
 
-      {/* EPISODES */}
       <section
         id="episodes"
         className="relative z-10 mx-auto max-w-7xl px-6 pb-24"
       >
 
         <div className="mb-8 flex items-end justify-between">
-
           <div>
-
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
               İzle
             </div>
@@ -401,20 +318,16 @@ export default function SoloLevelingPage() {
             <p className="mt-2 text-sm text-zinc-500">
               İzlemek istediğin bölümü seç.
             </p>
-
           </div>
 
           <div className="hidden text-sm text-zinc-600 sm:block">
             25 Bölüm
           </div>
-
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
-
           {Array.from({ length: 25 }, (_, i) => i + 1).map(
             (episode) => (
-
               <a
                 key={episode}
                 href={
@@ -424,7 +337,6 @@ export default function SoloLevelingPage() {
                 }
                 className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:bg-red-600/[0.06]"
               >
-
                 <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-600 transition group-hover:text-red-500">
                   Bölüm
                 </div>
@@ -438,19 +350,13 @@ export default function SoloLevelingPage() {
                 </div>
 
                 <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-600 transition-all duration-300 group-hover:w-full" />
-
               </a>
-
             )
           )}
-
         </div>
-
       </section>
 
-      {/* FOOTER */}
       <footer className="relative z-10 border-t border-white/[0.06] py-10 text-center">
-
         <div className="text-sm font-black tracking-[0.15em]">
           NOX SCANS
         </div>
@@ -458,7 +364,6 @@ export default function SoloLevelingPage() {
         <div className="mt-2 text-xs text-zinc-600">
           © 2026 NOX SCANS — Anime & Manga
         </div>
-
       </footer>
 
     </main>
