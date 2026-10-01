@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function MoonLogo() {
   return (
@@ -16,6 +16,58 @@ function MoonLogo() {
 
 export default function BlueLockPage() {
   const glowRef = useRef<HTMLDivElement>(null);
+  const [isInList, setIsInList] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("nox-watchlist");
+
+      if (!saved) return;
+
+      const parsed = JSON.parse(saved);
+
+      if (Array.isArray(parsed)) {
+        setIsInList(parsed.includes("blue-lock"));
+      }
+    } catch {
+      setIsInList(false);
+    }
+  }, []);
+
+  const toggleWatchlist = () => {
+    try {
+      const saved = localStorage.getItem("nox-watchlist");
+
+      let list: string[] = [];
+
+      if (saved) {
+        const parsed = JSON.parse(saved);
+
+        if (Array.isArray(parsed)) {
+          list = parsed;
+        }
+      }
+
+      if (list.includes("blue-lock")) {
+        list = list.filter((id) => id !== "blue-lock");
+        setIsInList(false);
+      } else {
+        list = [...list, "blue-lock"];
+        setIsInList(true);
+      }
+
+      localStorage.setItem(
+        "nox-watchlist",
+        JSON.stringify(list)
+      );
+
+      window.dispatchEvent(
+        new Event("nox-watchlist-updated")
+      );
+    } catch {
+      console.error("Liste kaydedilemedi.");
+    }
+  };
 
   useEffect(() => {
     let mouseX = -500;
@@ -57,10 +109,14 @@ export default function BlueLockPage() {
         <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-red-700/[0.07] blur-[150px]" />
       </div>
 
+      {/* NAVBAR */}
       <header className="sticky top-0 z-[9999] border-b border-white/[0.06] bg-black/75 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
-          <a href="/" className="relative z-[10000] flex items-center gap-3">
+          <a
+            href="/"
+            className="relative z-[10000] flex items-center gap-3"
+          >
             <MoonLogo />
 
             <div>
@@ -74,25 +130,37 @@ export default function BlueLockPage() {
             </div>
           </a>
 
-          <nav className="relative z-[10000] hidden items-center gap-8 text-sm font-medium md:flex">
-            <a href="/" className="text-zinc-400 transition hover:text-red-500">
+          <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
+            <a
+              href="/"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Ana Sayfa
             </a>
 
-            <a href="/#popular" className="text-white transition hover:text-red-500">
+            <a
+              href="/#popular"
+              className="text-white transition hover:text-red-500"
+            >
               Animeler
             </a>
 
-            <a href="/#popular" className="text-zinc-400 transition hover:text-red-500">
+            <a
+              href="/#popular"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Popüler
             </a>
 
-            <a href="/#genres" className="text-zinc-400 transition hover:text-red-500">
+            <a
+              href="/#genres"
+              className="text-zinc-400 transition hover:text-red-500"
+            >
               Türler
             </a>
           </nav>
 
-          <div className="relative z-[10000] flex items-center gap-3">
+          <div className="flex items-center gap-3">
             <button
               type="button"
               className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-red-500/40 hover:text-red-500 sm:flex"
@@ -101,26 +169,34 @@ export default function BlueLockPage() {
             </button>
 
             <a
-              href="/login"
-              className="red-button relative z-[10001] inline-flex cursor-pointer items-center justify-center rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold transition hover:bg-red-500"
+              href="/profile"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-red-500/30 bg-red-600/10 text-lg transition hover:bg-red-600/20"
+              title="Profil"
             >
-              Giriş Yap
+              👤
             </a>
           </div>
         </div>
       </header>
 
+      {/* HERO */}
       <section className="relative z-10 border-b border-white/[0.06]">
         <div className="mx-auto max-w-7xl px-6 py-14">
 
           <div className="mb-10 flex items-center gap-2 text-sm">
-            <a href="/" className="text-zinc-500 transition hover:text-red-500">
+            <a
+              href="/"
+              className="text-zinc-500 transition hover:text-red-500"
+            >
               Ana Sayfa
             </a>
 
             <span className="text-zinc-700">/</span>
 
-            <a href="/#popular" className="text-zinc-500 transition hover:text-red-500">
+            <a
+              href="/#popular"
+              className="text-zinc-500 transition hover:text-red-500"
+            >
               Animeler
             </a>
 
@@ -133,7 +209,9 @@ export default function BlueLockPage() {
 
           <div className="grid items-center gap-14 lg:grid-cols-[310px_1fr]">
 
+            {/* POSTER */}
             <div className="relative mx-auto w-full max-w-[310px]">
+
               <div className="pointer-events-none absolute -inset-5 rounded-[35px] bg-red-600/[0.08] blur-2xl" />
 
               <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl">
@@ -159,10 +237,10 @@ export default function BlueLockPage() {
                     BLUE LOCK
                   </div>
                 </div>
-
               </div>
             </div>
 
+            {/* INFO */}
             <div>
 
               <div className="flex items-center gap-2">
@@ -212,33 +290,41 @@ export default function BlueLockPage() {
               </div>
 
               <p className="mt-8 max-w-2xl text-[15px] leading-8 text-zinc-400">
-                Yoichi Isagi, Japonya&apos;nın en iyi forvetini yetiştirmek
-                amacıyla oluşturulan Blue Lock projesine katılır. Burada
-                dünyanın en iyi forveti olabilmek için diğer yetenekli
-                oyuncularla kıyasıya mücadele eder.
+                Japonya'nın Dünya Kupası başarısızlığının ardından,
+                ülkenin en iyi forvetini ortaya çıkarmak için Blue Lock
+                adlı özel bir futbol projesi başlatılır. Isagi Yoichi,
+                dünyanın en iyi golcüsü olma yolunda diğer yetenekli
+                oyuncularla mücadele eder.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
+
                 <a
                   href="#episodes"
-                  className="red-button rounded-xl bg-red-600 px-7 py-4 text-sm font-black shadow-lg shadow-red-950/30 hover:bg-red-500"
+                  className="rounded-xl bg-red-600 px-7 py-4 text-sm font-black shadow-lg shadow-red-950/30 transition hover:bg-red-500"
                 >
                   ▶ Bölümleri Gör
                 </a>
 
                 <button
                   type="button"
-                  className="rounded-xl border border-white/10 bg-white/[0.03] px-7 py-4 text-sm font-bold text-zinc-300 transition hover:border-red-500/40 hover:text-white"
+                  onClick={toggleWatchlist}
+                  className={`rounded-xl border px-7 py-4 text-sm font-bold transition ${
+                    isInList
+                      ? "border-red-500/40 bg-red-600/10 text-red-400"
+                      : "border-white/10 bg-white/[0.03] text-zinc-300 hover:border-red-500/40 hover:text-white"
+                  }`}
                 >
-                  + Listeme Ekle
+                  {isInList ? "✓ Listemde" : "+ Listeme Ekle"}
                 </button>
-              </div>
 
+              </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* ABOUT */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 py-20">
         <div className="grid gap-6 lg:grid-cols-[1fr_330px]">
 
@@ -252,10 +338,10 @@ export default function BlueLockPage() {
             </h2>
 
             <p className="mt-6 max-w-3xl text-sm leading-8 text-zinc-400">
-              Japonya, Dünya Kupası başarısı için dünyanın en bencil ve
-              yetenekli forvetini yetiştirmek amacıyla Blue Lock adlı özel
-              bir proje başlatır. Yoichi Isagi de bu projeye dahil olur ve
-              yüzlerce genç forvet arasında hayatta kalmak için mücadele eder.
+              Isagi Yoichi, takımının önemli bir maçta elenmesinin ardından
+              Blue Lock projesine davet edilir. Burada yüzlerce genç forvet,
+              Japonya'nın en iyi golcüsü olabilmek için birbirleriyle
+              yarışmak zorundadır.
             </p>
           </div>
 
@@ -289,7 +375,7 @@ export default function BlueLockPage() {
               <div className="flex justify-between">
                 <span className="text-sm text-zinc-500">Tür</span>
                 <span className="text-right font-bold">
-                  Spor / Shounen
+                  Spor / Futbol
                 </span>
               </div>
 
@@ -299,6 +385,7 @@ export default function BlueLockPage() {
         </div>
       </section>
 
+      {/* EPISODES */}
       <section
         id="episodes"
         className="relative z-10 mx-auto max-w-7xl px-6 pb-24"
@@ -325,6 +412,7 @@ export default function BlueLockPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+
           {Array.from({ length: 38 }, (_, i) => i + 1).map(
             (episode) => (
               <a
@@ -352,6 +440,7 @@ export default function BlueLockPage() {
               </a>
             )
           )}
+
         </div>
       </section>
 

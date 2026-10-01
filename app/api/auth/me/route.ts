@@ -7,20 +7,23 @@ export async function GET() {
 
     if (!user) {
       return NextResponse.json(
-        { user: null },
-        { status: 200 }
+        { error: "Giriş yapılmamış." },
+        { status: 401 }
       );
     }
 
-    return NextResponse.json(
-      { user },
-      { status: 200 }
-    );
+    return NextResponse.json({
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
+    });
   } catch (error) {
     console.error("ME ERROR:", error);
 
     return NextResponse.json(
-      { user: null },
+      { error: "Kullanıcı bilgileri alınamadı." },
       { status: 500 }
     );
   }

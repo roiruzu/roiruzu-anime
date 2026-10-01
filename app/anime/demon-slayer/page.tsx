@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function MoonLogo() {
   return (
@@ -16,6 +16,58 @@ function MoonLogo() {
 
 export default function DemonSlayerPage() {
   const glowRef = useRef<HTMLDivElement>(null);
+  const [isInList, setIsInList] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("nox-watchlist");
+
+      if (!saved) return;
+
+      const parsed = JSON.parse(saved);
+
+      if (Array.isArray(parsed)) {
+        setIsInList(parsed.includes("demon-slayer"));
+      }
+    } catch {
+      setIsInList(false);
+    }
+  }, []);
+
+  const toggleWatchlist = () => {
+    try {
+      const saved = localStorage.getItem("nox-watchlist");
+
+      let list: string[] = [];
+
+      if (saved) {
+        const parsed = JSON.parse(saved);
+
+        if (Array.isArray(parsed)) {
+          list = parsed;
+        }
+      }
+
+      if (list.includes("demon-slayer")) {
+        list = list.filter((id) => id !== "demon-slayer");
+        setIsInList(false);
+      } else {
+        list = [...list, "demon-slayer"];
+        setIsInList(true);
+      }
+
+      localStorage.setItem(
+        "nox-watchlist",
+        JSON.stringify(list)
+      );
+
+      window.dispatchEvent(
+        new Event("nox-watchlist-updated")
+      );
+    } catch {
+      console.error("Liste kaydedilemedi.");
+    }
+  };
 
   useEffect(() => {
     let mouseX = -500;
@@ -57,10 +109,14 @@ export default function DemonSlayerPage() {
         <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-red-700/[0.07] blur-[150px]" />
       </div>
 
+      {/* NAVBAR */}
       <header className="sticky top-0 z-[9999] border-b border-white/[0.06] bg-black/75 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
-          <a href="/" className="relative z-[10000] flex items-center gap-3">
+          <a
+            href="/"
+            className="relative z-[10000] flex items-center gap-3"
+          >
             <MoonLogo />
 
             <div>
@@ -74,7 +130,7 @@ export default function DemonSlayerPage() {
             </div>
           </a>
 
-          <nav className="relative z-[10000] hidden items-center gap-8 text-sm font-medium md:flex">
+          <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
             <a href="/" className="text-zinc-400 transition hover:text-red-500">
               Ana Sayfa
             </a>
@@ -92,7 +148,7 @@ export default function DemonSlayerPage() {
             </a>
           </nav>
 
-          <div className="relative z-[10000] flex items-center gap-3">
+          <div className="flex items-center gap-3">
             <button
               type="button"
               className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-red-500/40 hover:text-red-500 sm:flex"
@@ -101,15 +157,17 @@ export default function DemonSlayerPage() {
             </button>
 
             <a
-              href="/login"
-              className="red-button relative z-[10001] inline-flex cursor-pointer items-center justify-center rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold transition hover:bg-red-500"
+              href="/profile"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-red-500/30 bg-red-600/10 text-lg transition hover:bg-red-600/20"
             >
-              Giriş Yap
+              👤
             </a>
           </div>
+
         </div>
       </header>
 
+      {/* HERO */}
       <section className="relative z-10 border-b border-white/[0.06]">
         <div className="mx-auto max-w-7xl px-6 py-14">
 
@@ -133,7 +191,9 @@ export default function DemonSlayerPage() {
 
           <div className="grid items-center gap-14 lg:grid-cols-[310px_1fr]">
 
+            {/* POSTER */}
             <div className="relative mx-auto w-full max-w-[310px]">
+
               <div className="pointer-events-none absolute -inset-5 rounded-[35px] bg-red-600/[0.08] blur-2xl" />
 
               <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl">
@@ -159,10 +219,10 @@ export default function DemonSlayerPage() {
                     DEMON SLAYER
                   </div>
                 </div>
-
               </div>
             </div>
 
+            {/* INFO */}
             <div>
 
               <div className="flex items-center gap-2">
@@ -212,25 +272,30 @@ export default function DemonSlayerPage() {
               </div>
 
               <p className="mt-8 max-w-2xl text-[15px] leading-8 text-zinc-400">
-                Tanjiro Kamado, ailesinin bir iblis tarafından öldürülmesinin
-                ardından kız kardeşi Nezuko&apos;yu kurtarmak ve onu yeniden
-                insana dönüştürmek için Demon Slayer Corps&apos;a katılır.
-                Böylece güçlü iblislerle dolu tehlikeli bir maceraya atılır.
+                Tanjiro Kamado, ailesini kaybettikten sonra kız kardeşi
+                Nezuko'yu yeniden insana döndürmek ve iblislerin
+                saldırılarının ardındaki gerçeği öğrenmek için İblis
+                Avcıları'na katılır.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
                   href="#episodes"
-                  className="red-button rounded-xl bg-red-600 px-7 py-4 text-sm font-black shadow-lg shadow-red-950/30 hover:bg-red-500"
+                  className="rounded-xl bg-red-600 px-7 py-4 text-sm font-black shadow-lg shadow-red-950/30 transition hover:bg-red-500"
                 >
                   ▶ Bölümleri Gör
                 </a>
 
                 <button
                   type="button"
-                  className="rounded-xl border border-white/10 bg-white/[0.03] px-7 py-4 text-sm font-bold text-zinc-300 transition hover:border-red-500/40 hover:text-white"
+                  onClick={toggleWatchlist}
+                  className={`rounded-xl border px-7 py-4 text-sm font-bold transition ${
+                    isInList
+                      ? "border-red-500/40 bg-red-600/10 text-red-400"
+                      : "border-white/10 bg-white/[0.03] text-zinc-300 hover:border-red-500/40 hover:text-white"
+                  }`}
                 >
-                  + Listeme Ekle
+                  {isInList ? "✓ Listemde" : "+ Listeme Ekle"}
                 </button>
               </div>
 
@@ -239,6 +304,7 @@ export default function DemonSlayerPage() {
         </div>
       </section>
 
+      {/* ABOUT */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 py-20">
         <div className="grid gap-6 lg:grid-cols-[1fr_330px]">
 
@@ -252,11 +318,10 @@ export default function DemonSlayerPage() {
             </h2>
 
             <p className="mt-6 max-w-3xl text-sm leading-8 text-zinc-400">
-              Tanjiro Kamado, ailesini kaybettikten sonra iblisler hakkında
-              gerçeği öğrenir. Kız kardeşi Nezuko da bir iblise dönüşmüştür.
-              Onu yeniden insana döndürmenin bir yolunu bulmak isteyen Tanjiro,
-              Demon Slayer Corps&apos;a katılır ve güçlü iblislerle savaşmaya
-              başlar.
+              Tanjiro Kamado'nun ailesi iblisler tarafından saldırıya
+              uğradığında hayatı tamamen değişir. Kız kardeşi Nezuko da
+              iblise dönüşür. Tanjiro, onu tekrar insana çevirmek ve
+              ailesinin intikamını almak için zorlu bir yolculuğa çıkar.
             </p>
           </div>
 
@@ -300,6 +365,7 @@ export default function DemonSlayerPage() {
         </div>
       </section>
 
+      {/* EPISODES */}
       <section
         id="episodes"
         className="relative z-10 mx-auto max-w-7xl px-6 pb-24"
@@ -326,6 +392,7 @@ export default function DemonSlayerPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+
           {Array.from({ length: 63 }, (_, i) => i + 1).map(
             (episode) => (
               <a
@@ -353,6 +420,7 @@ export default function DemonSlayerPage() {
               </a>
             )
           )}
+
         </div>
       </section>
 

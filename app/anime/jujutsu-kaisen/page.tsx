@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function MoonLogo() {
   return (
@@ -16,6 +16,94 @@ function MoonLogo() {
 
 export default function JujutsuKaisenPage() {
   const glowRef = useRef<HTMLDivElement>(null);
+
+  const [isInList, setIsInList] = useState(false);
+
+  /* =========================
+     LİSTEYİ KONTROL ET
+  ========================= */
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("nox-watchlist");
+
+      if (!saved) {
+        setIsInList(false);
+        return;
+      }
+
+      const parsed = JSON.parse(saved);
+
+      if (Array.isArray(parsed)) {
+        setIsInList(
+          parsed.includes("jujutsu-kaisen")
+        );
+      }
+    } catch {
+      setIsInList(false);
+    }
+  }, []);
+
+  /* =========================
+     LİSTEYE EKLE / ÇIKAR
+  ========================= */
+
+  const toggleWatchlist = () => {
+    try {
+      const saved = localStorage.getItem("nox-watchlist");
+
+      let list: string[] = [];
+
+      if (saved) {
+        const parsed = JSON.parse(saved);
+
+        if (Array.isArray(parsed)) {
+          list = parsed;
+        }
+      }
+
+      if (list.includes("jujutsu-kaisen")) {
+
+        list = list.filter(
+          (id) => id !== "jujutsu-kaisen"
+        );
+
+        setIsInList(false);
+
+      } else {
+
+        list = [
+          ...list,
+          "jujutsu-kaisen",
+        ];
+
+        setIsInList(true);
+      }
+
+      localStorage.setItem(
+        "nox-watchlist",
+        JSON.stringify(list)
+      );
+
+      /*
+       * Aynı sekmede başka componentlerin
+       * liste değişikliğini algılayabilmesi için
+       * özel event gönderiyoruz.
+       */
+      window.dispatchEvent(
+        new Event("nox-watchlist-updated")
+      );
+
+    } catch {
+      console.error(
+        "Liste kaydedilemedi."
+      );
+    }
+  };
+
+  /* =========================
+     MOUSE GLOW
+  ========================= */
 
   useEffect(() => {
     let mouseX = -500;
@@ -33,15 +121,27 @@ export default function JujutsuKaisenPage() {
         glowRef.current.style.top = `${mouseY}px`;
       }
 
-      animationFrame = requestAnimationFrame(updateGlow);
+      animationFrame =
+        requestAnimationFrame(updateGlow);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    animationFrame = requestAnimationFrame(updateGlow);
+    window.addEventListener(
+      "mousemove",
+      handleMouseMove
+    );
+
+    animationFrame =
+      requestAnimationFrame(updateGlow);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrame);
+      window.removeEventListener(
+        "mousemove",
+        handleMouseMove
+      );
+
+      cancelAnimationFrame(
+        animationFrame
+      );
     };
   }, []);
 
@@ -54,23 +154,27 @@ export default function JujutsuKaisenPage() {
         className="mouse-glow pointer-events-none fixed z-0"
       />
 
-      {/* BACKGROUND GLOW */}
+      {/* BACKGROUND */}
       <div className="pointer-events-none fixed inset-0 z-0">
+
         <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-red-700/[0.07] blur-[150px]" />
+
       </div>
 
       {/* NAVBAR */}
       <header className="sticky top-0 z-[9999] border-b border-white/[0.06] bg-black/75 backdrop-blur-xl">
+
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
-          {/* LOGO */}
           <a
             href="/"
             className="relative z-[10000] flex items-center gap-3"
           >
+
             <MoonLogo />
 
             <div>
+
               <div className="text-xl font-black tracking-[0.12em]">
                 NOX SCANS
               </div>
@@ -78,10 +182,11 @@ export default function JujutsuKaisenPage() {
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
                 ANIME & MANGA
               </div>
+
             </div>
+
           </a>
 
-          {/* NAVIGATION */}
           <nav className="relative z-[10000] hidden items-center gap-8 text-sm font-medium md:flex">
 
             <a
@@ -114,10 +219,8 @@ export default function JujutsuKaisenPage() {
 
           </nav>
 
-          {/* RIGHT SIDE */}
           <div className="relative z-[10000] flex items-center gap-3">
 
-            {/* SEARCH */}
             <button
               type="button"
               className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-red-500/40 hover:text-red-500 sm:flex"
@@ -125,16 +228,18 @@ export default function JujutsuKaisenPage() {
               🔍
             </button>
 
-            {/* LOGIN */}
             <a
-              href="/login"
-              className="red-button relative z-[10001] inline-flex cursor-pointer items-center justify-center rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold transition hover:bg-red-500"
+              href="/profile"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-red-500/30 bg-red-600/10 text-lg transition hover:bg-red-600/20"
+              title="Profil"
             >
-              Giriş Yap
+              👤
             </a>
 
           </div>
+
         </div>
+
       </header>
 
       {/* HERO */}
@@ -225,11 +330,15 @@ export default function JujutsuKaisenPage() {
               </div>
 
               <h1 className="mt-5 text-6xl font-black leading-[0.88] tracking-tight sm:text-7xl lg:text-8xl">
+
                 Jujutsu
+
                 <br />
+
                 <span className="text-red-600">
                   Kaisen
                 </span>
+
               </h1>
 
               <p className="mt-5 text-lg font-medium text-zinc-500">
@@ -278,16 +387,23 @@ export default function JujutsuKaisenPage() {
 
                 <a
                   href="#episodes"
-                  className="red-button rounded-xl bg-red-600 px-7 py-4 text-sm font-black shadow-lg shadow-red-950/30 hover:bg-red-500"
+                  className="rounded-xl bg-red-600 px-7 py-4 text-sm font-black shadow-lg shadow-red-950/30 transition hover:bg-red-500"
                 >
                   ▶ Bölümleri Gör
                 </a>
 
                 <button
                   type="button"
-                  className="rounded-xl border border-white/10 bg-white/[0.03] px-7 py-4 text-sm font-bold text-zinc-300 transition hover:border-red-500/40 hover:text-white"
+                  onClick={toggleWatchlist}
+                  className={`rounded-xl border px-7 py-4 text-sm font-bold transition ${
+                    isInList
+                      ? "border-red-500/40 bg-red-600/10 text-red-400"
+                      : "border-white/10 bg-white/[0.03] text-zinc-300 hover:border-red-500/40 hover:text-white"
+                  }`}
                 >
-                  + Listeme Ekle
+                  {isInList
+                    ? "✓ Listemde"
+                    : "+ Listeme Ekle"}
                 </button>
 
               </div>
@@ -305,7 +421,6 @@ export default function JujutsuKaisenPage() {
 
         <div className="grid gap-6 lg:grid-cols-[1fr_330px]">
 
-          {/* STORY */}
           <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
 
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
@@ -318,15 +433,13 @@ export default function JujutsuKaisenPage() {
 
             <p className="mt-6 max-w-3xl text-sm leading-8 text-zinc-400">
               Yuji Itadori, okulundaki doğaüstü olaylar kulübüne katılır.
-              Bir gün lanetli bir nesne ortaya çıktığında Yuji, arkadaşlarını
-              korumak için nesneyi yutar ve kendisini lanetlerin dünyasında
-              bulur. Satoru Gojo&apos;nun rehberliğinde Jujutsu büyücülerinin
-              arasına katılarak tehlikeli görevlerde mücadele eder.
+              Bir gün lanetli bir nesne ortaya çıktığında Yuji,
+              arkadaşlarını korumak için nesneyi yutar ve kendisini
+              lanetlerin dünyasında bulur.
             </p>
 
           </div>
 
-          {/* DETAILS */}
           <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
 
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
@@ -425,37 +538,38 @@ export default function JujutsuKaisenPage() {
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
 
-          {Array.from({ length: 47 }, (_, i) => i + 1).map(
-            (episode) => (
+          {Array.from(
+            { length: 47 },
+            (_, i) => i + 1
+          ).map((episode) => (
 
-              <a
-                key={episode}
-                href={
-                  episode === 1
-                    ? "/anime/jujutsu-kaisen/episode-1"
-                    : "#"
-                }
-                className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:bg-red-600/[0.06]"
-              >
+            <a
+              key={episode}
+              href={
+                episode === 1
+                  ? "/anime/jujutsu-kaisen/episode-1"
+                  : "#"
+              }
+              className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:bg-red-600/[0.06]"
+            >
 
-                <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-600 transition group-hover:text-red-500">
-                  Bölüm
-                </div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-600 transition group-hover:text-red-500">
+                Bölüm
+              </div>
 
-                <div className="mt-2 text-2xl font-black">
-                  {String(episode).padStart(2, "0")}
-                </div>
+              <div className="mt-2 text-2xl font-black">
+                {String(episode).padStart(2, "0")}
+              </div>
 
-                <div className="mt-3 text-[10px] text-zinc-600 transition group-hover:text-zinc-300">
-                  İzle →
-                </div>
+              <div className="mt-3 text-[10px] text-zinc-600 transition group-hover:text-zinc-300">
+                İzle →
+              </div>
 
-                <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-600 transition-all duration-300 group-hover:w-full" />
+              <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-600 transition-all duration-300 group-hover:w-full" />
 
-              </a>
+            </a>
 
-            )
-          )}
+          ))}
 
         </div>
 
