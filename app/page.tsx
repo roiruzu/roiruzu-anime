@@ -124,7 +124,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
-
       {/* MOUSE GLOW */}
       <div
         ref={glowRef}
@@ -147,7 +146,7 @@ export default function Home() {
           >
             <Image
               src="/icon.png"
-              alt="NOX SCANS"
+              alt="TSUKİSCANS"
               width={40}
               height={40}
               priority
@@ -156,7 +155,7 @@ export default function Home() {
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
-                NOX SCANS
+                TSUKİSCANS
               </div>
 
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
@@ -278,27 +277,18 @@ export default function Home() {
           <div className="relative z-10">
 
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/[0.06] px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-red-500">
-
               <span className="h-1.5 w-1.5 rounded-full bg-red-500 shadow-[0_0_10px_#dc2626]" />
-
-              NOX SCANS
-
+              TSUKİSCANS
             </div>
 
             <h1 className="text-5xl font-black leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
-
               Anime
-
               <br />
-
               <span className="text-red-600 drop-shadow-[0_0_25px_rgba(220,38,38,0.2)]">
                 Dünyasına
               </span>
-
               <br />
-
               Hoş Geldin.
-
             </h1>
 
             <p className="mt-7 max-w-xl text-base leading-7 text-zinc-400">
@@ -331,7 +321,6 @@ export default function Home() {
                 <div className="text-2xl font-black">
                   500+
                 </div>
-
                 <div className="mt-1 text-sm text-zinc-500">
                   Anime
                 </div>
@@ -343,7 +332,6 @@ export default function Home() {
                 <div className="text-2xl font-black">
                   10K+
                 </div>
-
                 <div className="mt-1 text-sm text-zinc-500">
                   Bölüm
                 </div>
@@ -355,7 +343,6 @@ export default function Home() {
                 <div className="text-2xl font-black">
                   24/7
                 </div>
-
                 <div className="mt-1 text-sm text-zinc-500">
                   Online
                 </div>
@@ -369,15 +356,12 @@ export default function Home() {
           <div className="relative hidden h-[520px] md:block">
 
             <div className="absolute right-8 top-12 h-[400px] w-[270px] rotate-6 overflow-hidden rounded-3xl border border-red-500/20 shadow-2xl shadow-red-950/30">
-
               <img
                 src="/images/demon-slayer.jpg"
                 alt="Demon Slayer"
                 className="h-full w-full object-cover"
               />
-
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-
             </div>
 
             <div className="absolute right-32 top-20 z-10 h-[400px] w-[270px] -rotate-3 overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl">
@@ -391,7 +375,6 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
 
               <div className="absolute bottom-6 left-6">
-
                 <div className="text-xs font-bold uppercase tracking-widest text-red-500">
                   Featured
                 </div>
@@ -399,7 +382,6 @@ export default function Home() {
                 <div className="mt-1 text-xl font-black">
                   Solo Leveling
                 </div>
-
               </div>
 
             </div>
@@ -407,7 +389,6 @@ export default function Home() {
           </div>
 
         </div>
-
       </section>
 
       {/* POPULAR */}
@@ -419,7 +400,6 @@ export default function Home() {
         <div className="flex items-end justify-between">
 
           <div>
-
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">
               Keşfet
             </p>
@@ -427,7 +407,6 @@ export default function Home() {
             <h2 className="mt-2 text-3xl font-black">
               Popüler Animeler
             </h2>
-
           </div>
 
           <span className="text-sm text-zinc-500">
@@ -489,12 +468,11 @@ export default function Home() {
           ))}
 
         </div>
-
       </section>
 
       {/* FOOTER */}
       <footer className="border-t border-white/[0.06] py-10 text-center text-sm text-zinc-600">
-        © 2026 NOX SCANS
+        © 2026 TSUKİSCANS
       </footer>
 
     </main>
