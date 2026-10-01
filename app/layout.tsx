@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TsukiScans",
+  title: "Tsuki Scans",
   description: "Tsuki Scans - Anime ve Manga",
 };
 
