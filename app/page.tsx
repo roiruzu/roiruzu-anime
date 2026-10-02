@@ -147,7 +147,7 @@ export default function Home() {
           >
             <Image
               src="/icon.png"
-              alt="TSUKİSCANS"
+              alt="TSUKİSUB"
               width={40}
               height={40}
               priority
@@ -156,7 +156,7 @@ export default function Home() {
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
-                TSUKİSCANS
+                TSUKİSUB
               </div>
 
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
@@ -188,14 +188,7 @@ export default function Home() {
             >
               Popüler
             </a>
-
-            <a
-              href="#genres"
-              className="text-zinc-400 transition hover:text-red-500"
-            >
-              Türler
-            </a>
-
+            
             <a
               href="/kullanicilar"
               className="text-zinc-400 transition hover:text-red-500"
@@ -286,7 +279,7 @@ export default function Home() {
 
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/[0.06] px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-red-500">
               <span className="h-1.5 w-1.5 rounded-full bg-red-500 shadow-[0_0_10px_#dc2626]" />
-              TSUKİSCANS
+              TSUKİSUB
             </div>
 
             <h1 className="text-5xl font-black leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
@@ -492,7 +485,7 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer className="border-t border-white/[0.06] py-10 text-center text-sm text-zinc-600">
-        © 2026 TSUKİSCANS
+        © 2026 TSUKİSUB
       </footer>
 
     </main>

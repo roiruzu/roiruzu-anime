@@ -245,7 +245,7 @@ export default function KullanicilarPage() {
 
             <Image
               src="/icon.png"
-              alt="TSUKİSCANS"
+              alt="TSUKİSUB"
               width={40}
               height={40}
               priority
@@ -255,7 +255,7 @@ export default function KullanicilarPage() {
             <div>
 
               <div className="text-xl font-black tracking-[0.12em]">
-                TSUKİSCANS
+                TSUKİSUB
               </div>
 
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
@@ -285,13 +285,6 @@ export default function KullanicilarPage() {
             </a>
 
             <a
-              href="/kullanicilar"
-              className="text-white transition hover:text-red-500"
-            >
-              Kullanıcılar
-            </a>
-
-            <a
               href="/#popular"
               className="text-zinc-400 transition hover:text-red-500"
             >
@@ -299,10 +292,10 @@ export default function KullanicilarPage() {
             </a>
 
             <a
-              href="/#genres"
-              className="text-zinc-400 transition hover:text-red-500"
+              href="/kullanicilar"
+              className="text-white transition hover:text-red-500"
             >
-              Türler
+              Kullanıcılar
             </a>
 
           </nav>
@@ -407,7 +400,7 @@ export default function KullanicilarPage() {
 
             <span className="h-1.5 w-1.5 rounded-full bg-red-500 shadow-[0_0_10px_#dc2626]" />
 
-            TSUKİSCANS COMMUNITY
+            TSUKİSUB COMMUNITY
 
           </div>
 
@@ -428,7 +421,7 @@ export default function KullanicilarPage() {
               </h1>
 
               <p className="mt-6 max-w-xl text-base leading-7 text-zinc-400">
-                Tsuki Scans topluluğundaki kullanıcıları keşfet,
+                Tsuki Sub topluluğundaki kullanıcıları keşfet,
                 profillerini görüntüle ve topluluğu tanı.
               </p>
 
@@ -582,7 +575,7 @@ export default function KullanicilarPage() {
                       </div>
 
                       <p className="mt-2 text-sm text-zinc-500">
-                        Tsuki Scans Kurucusu
+                        Tsuki Sub Kurucusu
                       </p>
 
                     </div>
@@ -665,7 +658,7 @@ export default function KullanicilarPage() {
                   </div>
 
                   <p className="mt-2 text-sm text-zinc-500">
-                    Tsuki Scans Yönetimi
+                    Tsuki Sub Yönetimi
                   </p>
 
                 </div>
@@ -763,7 +756,7 @@ export default function KullanicilarPage() {
                       </h3>
 
                       <p className="mt-2 text-sm text-zinc-600">
-                        Tsuki Scans üyesi
+                        Tsuki Sub üyesi
                       </p>
 
                     </div>
@@ -801,7 +794,7 @@ export default function KullanicilarPage() {
           <div className="mt-14 border-t border-white/[0.06] pt-7 text-center">
 
             <span className="text-xs text-zinc-700">
-              TSUKİSCANS · {filteredUsers.length} kullanıcı
+              TSUKİSUB · {filteredUsers.length} kullanıcı
             </span>
 
           </div>
@@ -813,7 +806,7 @@ export default function KullanicilarPage() {
       {/* FOOTER */}
 
       <footer className="relative z-10 border-t border-white/[0.06] py-10 text-center text-sm text-zinc-600">
-        © 2026 TSUKİSCANS
+        © 2026 TSUKİSUB
       </footer>
 
     </main>

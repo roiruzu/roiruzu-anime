@@ -166,7 +166,7 @@ export default function JujutsuKaisenPage() {
           >
             <Image
               src="/icon.png"
-              alt="TSUKİSCANS"
+              alt="TSUKİSUB"
               width={40}
               height={40}
               priority
@@ -175,7 +175,7 @@ export default function JujutsuKaisenPage() {
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
-                TSUKİSCANS
+                TSUKİSUB
               </div>
 
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
@@ -207,12 +207,12 @@ export default function JujutsuKaisenPage() {
             >
               Popüler
             </a>
-
+            
             <a
-              href="/#genres"
+              href="/kullanicilar"
               className="text-zinc-400 transition hover:text-red-500"
             >
-              Türler
+              Kullanıcılar
             </a>
 
           </nav>
@@ -502,11 +502,11 @@ export default function JujutsuKaisenPage() {
       <footer className="border-t border-white/[0.06] py-10 text-center">
 
         <div className="text-sm font-black tracking-[0.15em]">
-          TSUKİSCANS
+          TSUKİSUB
         </div>
 
         <div className="mt-2 text-xs text-zinc-600">
-          © 2026 TSUKİSCANS — ANIME & MANGA
+          © 2026 TSUKİSUB — ANIME & MANGA
         </div>
 
       </footer>

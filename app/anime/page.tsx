@@ -1,313 +1,414 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
-const animeData: Record<
-  string,
-  {
-    name: string;
-    image: string;
-    rating: string;
-    year: string;
-    episodes: number;
-    genre: string;
-    description: string;
-  }
-> = {
-  "demon-slayer": {
-    name: "Demon Slayer",
-    image: "/images/demon-slayer.jpg",
-    rating: "8.9",
-    year: "2019",
-    episodes: 63,
-    genre: "Aksiyon",
-    description:
-      "İblisler ve insanların karşı karşıya geldiği dünyada Tanjiro'nun ailesini korumak ve kız kardeşini kurtarmak için çıktığı yolculuk.",
-  },
-
-  "jujutsu-kaisen": {
-    name: "Jujutsu Kaisen",
-    image: "/images/jujutsu-kaisen.jpg",
-    rating: "8.6",
-    year: "2020",
-    episodes: 47,
-    genre: "Aksiyon",
-    description:
-      "Lanetlerin ve büyücülerin dünyasında Yuji Itadori'nin tehlikeli macerası.",
-  },
-
-  "solo-leveling": {
-    name: "Solo Leveling",
-    image: "/images/solo-leveling.jpg",
-    rating: "8.8",
-    year: "2024",
-    episodes: 25,
-    genre: "Aksiyon",
-    description:
-      "En zayıf avcı olarak başlayan Sung Jin-Woo'nun gizemli sistem sayesinde güçlenmesini anlatan hikaye.",
-  },
-
-  "blue-lock": {
-    name: "Blue Lock",
-    image: "/images/blue-lock.jpg",
-    rating: "8.2",
-    year: "2022",
-    episodes: 38,
-    genre: "Spor",
-    description:
-      "Japonya'nın en iyi forvetini yetiştirmek amacıyla oluşturulan sıra dışı futbol projesi.",
-  },
-
-  "cyber-moon": {
-    name: "Cyber Moon",
-    image: "/images/cyber-moon.jpg",
-    rating: "8.7",
-    year: "2026",
-    episodes: 12,
-    genre: "Aksiyon",
-    description:
-      "Gecenin karanlığında başlayan gizemli olaylar genç bir kahramanı şehrin bilinmeyen tarafına sürükler.",
-  },
-};
-
-function MoonLogo() {
-  return (
-    <svg
-      viewBox="0 0 40 40"
-      className="h-9 w-9 text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
-      fill="currentColor"
-    >
-      <path d="M27.5 3.5C22.8 6.4 20 11.4 20 17.2C20 25.9 27 33 35.7 33C36.2 33 36.7 33 37.2 32.9C34.2 36.1 29.7 38 24.7 38C15.1 38 7.3 30.2 7.3 20.6C7.3 11.4 14.4 3.8 23.5 3C24.9 2.9 26.2 3.1 27.5 3.5Z" />
-    </svg>
-  );
-}
-
-export default function AnimePage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default function SoloLevelingPage() {
   const glowRef = useRef<HTMLDivElement>(null);
 
-  const anime =
-    animeData[params.slug] ?? animeData["cyber-moon"];
+  const [user, setUser] = useState<{
+    id: string;
+    username: string;
+    email: string;
+  } | null>(null);
+
+  const [loadingUser, setLoadingUser] = useState(true);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [isInList, setIsInList] = useState(false);
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const response = await fetch("/api/auth/me", {
+          credentials: "include",
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          setUser(null);
+          return;
+        }
+
+        const data = await response.json();
+        setUser(data.user ?? null);
+      } catch {
+        setUser(null);
+      } finally {
+        setLoadingUser(false);
+      }
+    }
+
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("nox-watchlist");
+
+      if (saved) {
+        const parsed = JSON.parse(saved);
+
+        if (Array.isArray(parsed)) {
+          setIsInList(parsed.includes("solo-leveling"));
+        }
+      }
+    } catch {
+      setIsInList(false);
+    }
+  }, []);
 
   useEffect(() => {
     let mouseX = -500;
     let mouseY = -500;
+    let frame = 0;
 
-    let animationFrame = 0;
-
-    const handleMouseMove = (event: MouseEvent) => {
+    function move(event: MouseEvent) {
       mouseX = event.clientX;
       mouseY = event.clientY;
-    };
+    }
 
-    const updateGlow = () => {
+    function update() {
       if (glowRef.current) {
         glowRef.current.style.left = `${mouseX}px`;
         glowRef.current.style.top = `${mouseY}px`;
       }
 
-      animationFrame = requestAnimationFrame(updateGlow);
-    };
+      frame = requestAnimationFrame(update);
+    }
 
-    window.addEventListener("mousemove", handleMouseMove);
-
-    animationFrame = requestAnimationFrame(updateGlow);
+    window.addEventListener("mousemove", move);
+    frame = requestAnimationFrame(update);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrame);
+      window.removeEventListener("mousemove", move);
+      cancelAnimationFrame(frame);
     };
   }, []);
 
+  async function logout() {
+    try {
+      const response = await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+        cache: "no-store",
+      });
+
+      if (!response.ok) return;
+
+      setUser(null);
+      setShowUserMenu(false);
+      window.location.href = "/";
+    } catch {}
+  }
+
+  function toggleWatchlist() {
+    try {
+      const saved = localStorage.getItem("nox-watchlist");
+      let list: string[] = [];
+
+      if (saved) {
+        const parsed = JSON.parse(saved);
+
+        if (Array.isArray(parsed)) {
+          list = parsed;
+        }
+      }
+
+      if (list.includes("solo-leveling")) {
+        list = list.filter((id) => id !== "solo-leveling");
+        setIsInList(false);
+      } else {
+        list.push("solo-leveling");
+        setIsInList(true);
+      }
+
+      localStorage.setItem("nox-watchlist", JSON.stringify(list));
+      window.dispatchEvent(new Event("nox-watchlist-updated"));
+    } catch {}
+  }
+
   return (
-    <main className="min-h-screen bg-[#050505] text-white">
+    <main className="min-h-screen overflow-hidden bg-[#050505] text-white">
 
-      {/* MOUSE GLOW */}
+      <div ref={glowRef} className="mouse-glow pointer-events-none fixed z-0" />
 
-      <div
-        ref={glowRef}
-        className="mouse-glow"
-      />
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <div className="absolute left-1/2 top-[-250px] h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-red-700/[0.07] blur-[150px]" />
+      </div>
 
-      {/* NAVBAR */}
-
-      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-black/80 backdrop-blur-xl">
-
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-black/75 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
-          <a
-            href="/"
-            className="flex items-center gap-3"
-          >
+          <a href="/" className="flex items-center gap-3">
 
-            <MoonLogo />
+            <Image
+              src="/icon.png"
+              alt="Tsuki Sub"
+              width={40}
+              height={40}
+              priority
+              className="h-10 w-10 rounded-xl object-contain"
+            />
 
             <div>
-
               <div className="text-xl font-black tracking-[0.12em]">
-                NOX SCANS
+                Tsuki Sub
               </div>
 
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
                 ANIME & MANGA
               </div>
-
             </div>
 
           </a>
 
-          <nav className="hidden gap-8 text-sm md:flex">
-
-            <a
-              href="/"
-              className="text-zinc-400 transition hover:text-red-500"
-            >
+          <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
+            <a href="/" className="text-zinc-400 hover:text-red-500">
               Ana Sayfa
             </a>
 
-            <a
-              href="/#popular"
-              className="text-white"
-            >
+            <a href="/#popular" className="text-white hover:text-red-500">
               Animeler
             </a>
 
-            <a
-              href="/#popular"
-              className="text-zinc-400 hover:text-red-500"
-            >
+            <a href="/#popular" className="text-zinc-400 hover:text-red-500">
               Popüler
             </a>
 
+            <a href="/#genres" className="text-zinc-400 hover:text-red-500">
+              Türler
+            </a>
           </nav>
 
-          <button className="red-button rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold hover:bg-red-500">
-            Giriş Yap
-          </button>
+          <div className="flex items-center gap-3">
 
+            <button
+              type="button"
+              className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] sm:flex"
+            >
+              🔍
+            </button>
+
+            {loadingUser ? (
+              <div className="h-10 w-24 animate-pulse rounded-xl bg-white/10" />
+            ) : user ? (
+              <div className="relative">
+
+                <button
+                  type="button"
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold hover:bg-red-500"
+                >
+                  {user.username}
+                </button>
+
+                {showUserMenu && (
+                  <div className="absolute right-0 top-14 w-44 overflow-hidden rounded-xl border border-white/10 bg-zinc-950 shadow-2xl">
+
+                    <a
+                      href="/profile"
+                      className="block px-4 py-3 text-sm text-zinc-300 hover:bg-white/5"
+                    >
+                      👤 Profil
+                    </a>
+
+                    <button
+                      type="button"
+                      onClick={logout}
+                      className="block w-full px-4 py-3 text-left text-sm text-red-500 hover:bg-red-500/10"
+                    >
+                      🚪 Çıkış Yap
+                    </button>
+
+                  </div>
+                )}
+
+              </div>
+            ) : (
+              <a
+                href="/login"
+                className="rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold hover:bg-red-500"
+              >
+                Giriş Yap
+              </a>
+            )}
+
+          </div>
         </div>
-
       </header>
 
-      {/* ANIME HERO */}
+      <section className="relative z-10 border-b border-white/[0.06]">
+        <div className="mx-auto max-w-7xl px-6 py-14">
 
-      <section className="relative overflow-hidden">
+          <div className="mb-10 flex gap-2 text-sm">
+            <a href="/" className="text-zinc-500 hover:text-red-500">
+              Ana Sayfa
+            </a>
 
-        <div className="pointer-events-none absolute left-1/3 top-0 h-[600px] w-[600px] rounded-full bg-red-700/[0.06] blur-[140px]" />
+            <span className="text-zinc-700">/</span>
 
-        <div className="relative mx-auto flex max-w-7xl flex-col gap-10 px-6 py-16 md:flex-row">
-
-          {/* POSTER */}
-
-          <div className="red-glow h-[430px] w-full shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-zinc-950 md:w-[290px]">
-
-            <img
-              src={anime.image}
-              alt={anime.name}
-              className="h-full w-full object-cover"
-            />
-
+            <span className="text-zinc-300">
+              Solo Leveling
+            </span>
           </div>
 
-          {/* BİLGİ */}
+          <div className="grid items-center gap-14 lg:grid-cols-[310px_1fr]">
 
-          <div className="flex flex-col justify-center">
+            <div className="relative mx-auto w-full max-w-[310px]">
 
-            <div className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-red-500">
-              Anime
+              <div className="pointer-events-none absolute -inset-5 rounded-[35px] bg-red-600/[0.08] blur-2xl" />
+
+              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950">
+
+                <img
+                  src="/images/solo-leveling.jpg"
+                  alt="Solo Leveling"
+                  className="aspect-[3/4] w-full object-cover"
+                />
+
+                <div className="absolute left-5 top-5 rounded-lg border border-red-500/30 bg-red-600/90 px-3 py-1.5 text-xs font-black">
+                  HD
+                </div>
+
+              </div>
             </div>
 
-            <h1 className="text-5xl font-black md:text-7xl">
-              {anime.name}
-            </h1>
+            <div>
 
-            <div className="mt-5 flex flex-wrap gap-4 text-sm text-zinc-400">
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-red-500" />
 
-              <span>⭐ {anime.rating}</span>
+                <span className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">
+                  Anime
+                </span>
+              </div>
 
-              <span>•</span>
+              <h1 className="mt-5 text-6xl font-black leading-[0.88] tracking-tight sm:text-7xl lg:text-8xl">
+                Solo
+                <br />
+                <span className="text-red-600">
+                  Leveling
+                </span>
+              </h1>
 
-              <span>{anime.year}</span>
+              <p className="mt-5 text-lg text-zinc-500">
+                俺だけレベルアップな件
+              </p>
 
-              <span>•</span>
+              <div className="mt-7 flex flex-wrap gap-2">
+                <span className="info-tag">⭐ 8.8</span>
+                <span className="info-tag">Aksiyon</span>
+                <span className="info-tag">Fantastik</span>
+                <span className="info-tag">Macera</span>
+                <span className="info-tag">25 Bölüm</span>
+              </div>
 
-              <span>{anime.episodes} Bölüm</span>
+              <p className="mt-8 max-w-2xl text-[15px] leading-8 text-zinc-400">
+                Dünyanın en zayıf avcısı olarak bilinen Sung Jin-Woo,
+                gizemli bir sistem sayesinde seviye atlayabilen özel
+                bir güce sahip olur ve giderek güçlenmeye başlar.
+              </p>
 
-              <span>•</span>
+              <div className="mt-8 flex flex-wrap gap-3">
 
-              <span>{anime.genre}</span>
+                <a
+                  href="#episodes"
+                  className="rounded-xl bg-red-600 px-7 py-4 text-sm font-black hover:bg-red-500"
+                >
+                  ▶ Bölümleri Gör
+                </a>
+
+                <button
+                  type="button"
+                  onClick={toggleWatchlist}
+                  className={`rounded-xl border px-7 py-4 text-sm font-bold ${
+                    isInList
+                      ? "border-red-500/40 bg-red-600/10 text-red-400"
+                      : "border-white/10 bg-white/[0.03] text-zinc-300"
+                  }`}
+                >
+                  {isInList ? "✓ Listemde" : "+ Listeme Ekle"}
+                </button>
+
+              </div>
 
             </div>
-
-            <p className="mt-7 max-w-2xl leading-7 text-zinc-400">
-              {anime.description}
-            </p>
-
-            <div className="mt-8 flex gap-3">
-
-              <button className="red-button rounded-xl bg-red-600 px-7 py-4 font-bold hover:bg-red-500">
-                ▶ İzlemeye Başla
-              </button>
-
-              <button className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 font-bold text-zinc-300 transition hover:border-red-500/30 hover:text-white">
-                + Listeye Ekle
-              </button>
-
-            </div>
-
           </div>
-
         </div>
-
       </section>
 
-      {/* BÖLÜMLER */}
+      <section className="mx-auto max-w-7xl px-6 py-20">
 
-      <section className="mx-auto max-w-7xl px-6 pb-20">
+        <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-8">
 
-        <div className="mb-8">
+          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
+            Hikaye
+          </div>
 
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">
-            İzle
-          </p>
-
-          <h2 className="mt-2 text-3xl font-black">
-            Bölümler
+          <h2 className="mt-3 text-3xl font-black">
+            Solo Leveling Hakkında
           </h2>
 
+          <p className="mt-6 max-w-3xl text-sm leading-8 text-zinc-400">
+            Sung Jin-Woo, zayıf bir avcı olarak başladığı yolculuğunda
+            gizemli bir sistemin yardımıyla güçlenir ve dünyanın en
+            güçlü avcılarından biri olma yolunda ilerler.
+          </p>
+
+        </div>
+      </section>
+
+      <section id="episodes" className="mx-auto max-w-7xl px-6 pb-24">
+
+        <div className="mb-8">
+          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">
+            İzle
+          </div>
+
+          <h2 className="mt-2 text-3xl font-black">
+            Solo Leveling Bölümleri
+          </h2>
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
 
-          {Array.from(
-            { length: anime.episodes },
-            (_, index) => (
-              <button
-                key={index}
-                className="group rounded-xl border border-white/[0.07] bg-white/[0.025] p-4 text-left transition duration-200 hover:-translate-y-1 hover:border-red-500/50 hover:bg-red-600"
-              >
+          {Array.from({ length: 25 }, (_, i) => i + 1).map((episode) => (
+            <a
+              key={episode}
+              href={
+                episode === 1
+                  ? "/anime/solo-leveling/episode-1"
+                  : "#"
+              }
+              className="group rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 hover:-translate-y-1 hover:border-red-500/40"
+            >
+              <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-600 group-hover:text-red-500">
+                Bölüm
+              </div>
 
-                <div className="text-[10px] font-bold uppercase tracking-widest text-zinc-600 group-hover:text-red-100">
-                  Bölüm
-                </div>
+              <div className="mt-2 text-2xl font-black">
+                {String(episode).padStart(2, "0")}
+              </div>
 
-                <div className="mt-1 text-xl font-black">
-                  {String(index + 1).padStart(2, "0")}
-                </div>
-
-              </button>
-            )
-          )}
+              <div className="mt-3 text-[10px] text-zinc-600">
+                İzle →
+              </div>
+            </a>
+          ))}
 
         </div>
-
       </section>
 
-      <footer className="border-t border-white/[0.06] py-10 text-center text-sm text-zinc-600">
-        © 2026 NOX SCANS
+      <footer className="border-t border-white/[0.06] py-10 text-center">
+
+        <div className="text-sm font-black tracking-[0.15em]">
+          Tsuki Sub
+        </div>
+
+        <div className="mt-2 text-xs text-zinc-600">
+          © 2026 Tsuki Sub — Anime & Manga
+        </div>
+
       </footer>
 
     </main>

@@ -208,7 +208,7 @@ export default function AnimelerPage() {
 
             <Image
               src="/icon.png"
-              alt="TSUKİSCANS"
+              alt="TSUKİSUB"
               width={40}
               height={40}
               priority
@@ -218,7 +218,7 @@ export default function AnimelerPage() {
             <div>
 
               <div className="text-xl font-black tracking-[0.12em]">
-                TSUKİSCANS
+                TSUKİSUB
               </div>
 
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
@@ -252,13 +252,6 @@ export default function AnimelerPage() {
               className="text-zinc-400 transition hover:text-red-500"
             >
               Popüler
-            </a>
-
-            <a
-              href="/animeler#genres"
-              className="text-zinc-400 transition hover:text-red-500"
-            >
-              Türler
             </a>
 
             <a
@@ -350,7 +343,7 @@ export default function AnimelerPage() {
 
           <span className="h-1.5 w-1.5 rounded-full bg-red-500 shadow-[0_0_10px_#dc2626]" />
 
-          TSUKİSCANS
+          TSUKİSUB
 
         </div>
 
@@ -567,7 +560,7 @@ export default function AnimelerPage() {
       ========================= */}
 
       <footer className="relative z-10 border-t border-white/[0.06] py-10 text-center text-sm text-zinc-600">
-        © 2026 TSUKİSCANS
+        © 2026 TSUKİSUB
       </footer>
 
     </main>

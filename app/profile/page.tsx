@@ -350,13 +350,13 @@ export default function ProfilePage() {
 
             <img
               src="/icon.png"
-              alt="TSUKİSCANS"
+              alt="TSUKİSUB"
               className="h-10 w-10 rounded-xl object-contain drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
             />
 
             <div>
               <div className="text-xl font-black tracking-[0.12em]">
-                TSUKİSCANS
+                TSUKİSUB
               </div>
 
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
@@ -392,10 +392,10 @@ export default function ProfilePage() {
             </a>
 
             <a
-              href="/#genres"
-              className="text-zinc-400 transition hover:text-red-500"
+              href="/kullanicilar"
+              className="text-white transition hover:text-red-500"
             >
-              Türler
+              Kullanıcılar
             </a>
 
           </nav>
@@ -718,11 +718,11 @@ export default function ProfilePage() {
       <footer className="relative z-10 border-t border-white/[0.06] py-10 text-center">
 
         <div className="text-sm font-black tracking-[0.15em]">
-          TSUKİSCANS
+          TSUKİSUB
         </div>
 
         <div className="mt-2 text-xs text-zinc-600">
-          © 2026 TSUKİSCANS — Anime & Manga
+          © 2026 TSUKİSUB — Anime & Manga
         </div>
 
       </footer>

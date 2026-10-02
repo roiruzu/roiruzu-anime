@@ -1,13 +1,4 @@
-import { PrismaClient } from "@/app/generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL!,
-});
-
-const prisma = new PrismaClient({
-  adapter,
-});
+import { prisma } from "@/app/lib/prisma";
 
 export async function GET() {
   try {
@@ -22,13 +13,19 @@ export async function GET() {
       },
     });
 
-    return Response.json({ users });
+    return Response.json({
+      users,
+    });
   } catch (error) {
     console.error("Kullanıcılar alınırken hata:", error);
 
     return Response.json(
-      { error: "Kullanıcılar alınamadı" },
-      { status: 500 }
+      {
+        error: "Kullanıcılar alınamadı",
+      },
+      {
+        status: 500,
+      }
     );
   }
 }

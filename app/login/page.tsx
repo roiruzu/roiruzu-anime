@@ -6,7 +6,7 @@ function SiteLogo() {
   return (
     <img
       src="/icon.png"
-      alt="NOX SCANS"
+      alt="TSUKİ SUB"
       className="h-10 w-10 rounded-xl object-contain drop-shadow-[0_0_12px_rgba(220,38,38,0.65)]"
     />
   );
@@ -76,7 +76,7 @@ export default function LoginPage() {
 
             <div className="text-left">
               <div className="text-xl font-black tracking-[0.12em]">
-                NOX SCANS
+                TSUKİ SUB
               </div>
 
               <div className="text-[9px] font-bold tracking-[0.35em] text-red-500">
