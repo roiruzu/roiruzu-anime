@@ -38,21 +38,16 @@ export default function Page() {
 
         </div>
 
-        {/* VIDEO OYNATICI */}
+        {/* VCDN VIDEO OYNATICI */}
         <div className="mt-8 aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black">
 
-          <video
-            controls
+          <iframe
+            src="https://embed.vcdn.me/embed/cad19399-2f8f-4aa6-8e74-0b0414fe6446"
             className="h-full w-full"
-            poster="/images/solo-leveling.jpg"
-          >
-            <source
-              src="/videos/solo-leveling-1.mp4"
-              type="video/mp4"
-            />
-
-            Tarayıcınız video oynatmayı desteklemiyor.
-          </video>
+            frameBorder="0"
+            allowFullScreen
+            allow="fullscreen; picture-in-picture"
+          />
 
         </div>
 
